@@ -1,0 +1,55 @@
+\documentclass[12pt,accentcolor=tud2c, longdoc, colorback, bigchapter]{tudreport}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[ngerman]{babel}
+\usepackage{hyperref}
+\usepackage{geometry}
+%\geometry{a4paper,left=25mm,right=20mm, top=1.5cm, bottom=1.5cm}
+\graphicspath{{bilder/}}
+\setinstitutionlogo{celogo}
+%%% Untere Titelrückseite
+\lowertitleback{%
+	Verfasser: Denis Andric, Bastian Koch, Dirk Schweickard\\
+	Studiengang: Computational Engineering B.Sc.\\ \\
+           Hausarbeit\\
+	Thema: Wie wirtschaftlich ist mein Betrieb?\\\\
+	Eingereicht: \today\\ \\
+	%Rahmeninformationen
+	Betreuer: Zeger Bontinck,  \\
+	\hspace*{4em}  Niklas Georg \\\\
+	Studienbereich Computational Engineering\\
+	Technische Universität Darmstadt\\
+	Dolivostraße 15\\
+	64293 Darmstadt}
+
+
+\title{Wie wirtschaftlich ist mein Betrieb?}
+\subtitle{ECES 2 Sommersemester 2017}
+\subsubtitle{Betreuer: Z. Bontinck | N.Georg}
+%Beginn des Dokuments
+\begin{document}
+\maketitle
+\cleardoublepage
+\setcounter{page}{1}
+\pagenumbering{roman}
+\include{eid} 
+\include{abstract}
+\tableofcontents
+\listoffigures
+\listoftables
+% Eigentlicher Text mit arabischen Seitenzahlen
+\cleardoublepage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+%einzelne Kapitel
+\include{chapter1}
+\include{chapter2}
+%Literaturverzeichnis
+%\bibliographystyle{plaindin}
+\bibliographystyle{alphadin}
+\bibliography{literatur}
+%Appendix
+\appendix
+\include{anhang}
+\end{document}
