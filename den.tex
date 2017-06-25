@@ -1,0 +1,60 @@
+\section{Nullstellensuche}
+In vorgehenden Beispiel hat man eine interpolierender Spline $p_\textrm{G}$ mit den Daten für Gewinnfunktion in Javaprogram implementiert. 
+Jetzt kommt die Frage wo unsere Gewinnzone liegt in $p_\textrm{G}$. Es ist siehtbar aus Abbildung %ref 
+dass im Intervall $[10,60]$ unsere Gewinnzone ist weil in diesem Intervall  $p_\textrm{G} > 0$ ist, aber  im Intervall  $[0,10]$ ist nicht dasselbe Fall. In diesem Intervall liegt eine Nullstelle  $p_\textrm{G} =0$ , die eine grenze zwischen den Verlust und Gewinn ist.\\
+Um eine Nullstelle zu finden, braucht man die Methoden, wie z. b. Bisektionsalgorithmus.
+
+\subsection{Bisektionalgorithmus}
+Ein berühmteste Algorithmus zur Bestimmung einer Nullstelle ist Bisektionsalgorithmus, bekannt auch als Löwenfangalgorithmus oder Intervallschachtelung.\\
+In diesem Abschnit wird erklärt wie man Bisektionsalgorithmus benutzt.\\
+\\
+Man nehmt an, dass eine belibige stetige Funktion$f(x)$ hat eine Nullstelle im einem Intervall $[a,b]$ ,das die Eigenschaft hat, dass $f(a)$  und $f(b)$ das entgegengesetzte Vorzeichen haben: $$f(a)f(b)<0$$.\\
+
+In erstem Schritt berechnet man die Mittelpunkt des Intervalls durch den Formel: $$ x=\frac{a + b}{2}$$
+\\
+In zweitem Schtrit halbiert man das Intervall auf zwei Teilintervalle $x\in[a,x]$ und $ B\in[x,b]$.%Bilder!!!!
+Danach muss man sich entscheiden, in welechem Teilintervall eine Nullstelle befindet. Für das richtige Teilintervall muss die Eigenschaft aus dem Intervall$[a,b]$ gelten.
+Das bedeutet dass $x$ gegengesetzte Vorzeichen mit $a$ oder$b$ haben soll. In welchem Teilintervall das stimmt, gibt es da eine Nullstelle, danach wiederholt man die Schritten bis man eine gute Aproximation der Nullstelle findet: $$f(x)\approx 0$$\\
+\newpage
+\subsection{Javainplementation}
+\begin{verbatim}
+/**
+ * Methode um eine Nullstelle zu finden in Interval [a,b] - Bisektionalgorithmus
+ * @param a aus Interval [a,b]
+ * @param b aus Interval [a,b]
+ * @param e sehr kleinen Zahl für Abbruchkriterium
+ * @return approximierte Nullstelle der Funktion auf gegebenen Interval
+ */
+	public double executeBisektion(double a, double b, double e) {
+		double x;
+
+		do {
+
+			x = (a + b) / 2;
+
+			if (f(a) * f(x) < 0)
+				b = x;
+
+			else
+				a = x;
+
+		} while (Math.abs(f(x)) > e);
+
+		return x;
+}
+ 
+\end{verbatim}
+In dieser Javacode ist Bisektionverfahren dargestellt und  in diesem Abschnit wird rklärt wie dises Algorithmus Funktioniert.
+Die Methode \verb|executeBisektion(double a, double b, double e)| zuerst braucht 3 Parametern.
+\begin{itemize}
+\item $a$ aus Intervall $[a,b]$
+\item $b$ aus Intervall $[a,b]$
+\item $e$ ein sehr kleinen Zahl $\varepsilon$,für die Abbruchbedingung 
+\end{itemize}                      
+In der Methode zuerst inizialisiert man eine Variable $x$ ,die eine aprroximierte Nullstelle wird. Innerhalb \verb|do/while| Schleife berechnet man die Mittelpunkt, dannach durch \verb|if|-Bedigung klebt es x in a oder in b. Wenn $f(a) * f(b) < 0$ true liefert, ist dann $[a,x]$ neuen Intervall
+
+
+
+
+
+
