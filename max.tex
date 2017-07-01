@@ -1,0 +1,22 @@
+\section{Extrema der linneare Splinne}
+Im Beispiel (REF) hat man $p_G(x)$ gebiltet und man wollte Gewinnmaximum bestimmen. Die Funktion ist stetig, aber leider nicht differenzierbar in der Punkten $ x_i \in \{0, 1, 2 ,3 ,4 ,5 ,6 \}$.
+Das macht ein kleines Problem. weil man nicht Ableitung von $p_G$ nutzen darf.
+Normalewiese nutzt, um Extrema zu finden, diese Methode:
+
+ $$f: \mathbb{R} \in \mathbb{R}$$
+$$ f(x)^{\prime} = 0$$
+Im Abbildung ist siehtbar, dass Maximum von $p_G(x)$ an den Knoten liegt, dann\\
+Ein linearer Splinne besitzt am Knoten;
+\begin{itemize}
+\item ein Maximum, wenn die Steigung von $G_{[x_i -1, x_i]}$ positiv und $G_{[x_i -1, x_i]}$ negativ ist
+
+\item ein Minimum, wenn die Steigung von $G_{[x_i -1, x_i]}$ negativ und $G_{[x_i -1, x_i]}$ positiv ist
+\end{itemize}
+
+Hier ist die Lösung der Beispiel:
+
+$$G_0 < G_1 <G_2 <G_3 <\underline{G_4}> G_5 > G_6$$
+
+Unterschtichen ist Maximum von $P_G$ und dieser Logik wird in Javaimplementation genutzt.  
+\subsection{Javaimplementation}
+

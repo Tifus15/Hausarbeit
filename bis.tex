@@ -4,13 +4,85 @@ Eine berühmste Algorithmus zur Bestimmung  einer Nullstelle non- linearer Funkt
 Abblidung b
 \\
 \\
-Man nehmt an,dass eine stetige Funktion $f(x)$ im Intervall $[a,b]$ ist 
+Laut der Theorem von Bolzano\footnote{Bernardus Placidus Johann Nepomuk Bolzano (1781-1848) war tschechische katolischer Priester, Philosoph und Matematiker.Als Mathematiker betrieb er Grundlagenforschung in der Analysis. Er konstruirte überall stetige Funktion, aber nirgends differenzierbar.
+Im einen Austaz von 1817 bewies er den Zwischenwertsatz und führte Cauchy-Folgen ein, vier Jahre vor Augustin- Louis Chauchy} sei eine nicht lineare  Funktion $f(x)$ ,dass im Intervall $[a,b]$ stetig ist,  
 und  $f(a)$, $f(b)$ entgegengesetzte Vorzeichen haben: $f(a)f(b)<0$, dann existiert ein $c$:
-$$c \in (a,b) und gilt f(c)=0$$ FOOTNOTE bolzano Theorem und ZITATION AUF PDF\\
+$$c \in (a,b) \wedge f(c)=0$$ FOOTNOTE bolzano Theorem und ZITATION AUF PDF\\
 
 Zuerst berechnet man die Mittelpunkt $x_m$ des Intervalls $[a,b]$ durch den Formel:
 $$ x_m = \frac{a+b}{2}$$
 Abbildung c
 \\
-Aus Abbildung c ist zu sehen, dass man Interval $[a,b]$ auf zwei Teilintervale $[a,x_m]$ und $[x_m,b]$ halbeirt wird. Es ist zu merken dass Längen von Teilintervallen sind gleich und für ein Halb kleiner von Intervalllänge $[a,b]$.
+Aus Abbildung c ist zu sehen, dass man Interval $[a,b]$ auf zwei Teilintervale $[a,x_m]$ und $[x_m,b]$ halbeirt wird. Es ist zu merken dass Längen von Teilintervallen sind gleich und für ein Halb kleiner von der Intervalllänge $[a,b]$. 
+Jetzt soll man entscheiden in welche von disen zwei Teilintervalle Nullstelle liegt. Dafür nutzen wir auch Theorem von Bolzano. 
+Wenn $f(a)$ und $(x_m)$ entgegengesetzte Vorzeiche haben, liegt in $[a,x_m]$ eine Nullstelle. Im Gegenfall liegt die nullstelle in $[x_m,b]$.
+Danach wiederholt man das ganze  Prozess, bis man eine gute Näherung der Nullstelle findet, aber es gibt eine bessere Abruchbedigung, Durch halbieren der Intervallänge $L_h$ nach $h$ Iterationen (Wiederholungen) die Null wird. Dafür gilt:
+$$L_h = \frac{b-a}{2^h}, h \in \mathbb{N}$$ Folge $L_h$ ist konvergent und es konvergiert auch in 0:
+$$\lim_{h \to \infty}L_h = \lim_{h \to \infty}\frac{b-a}{2^h}=0$$
+
+\subsubsection{Javaimplementation}
+Im javaprogramm \verb|Bisektion.java| ist eine Methode \verb|executeBisektion| für Bisektionverfahren dargestellt und es wird erklärt wie dieses Algorithmus fuktioniert.\\
+Die Methode \verb|f| dargestellt nur eine nichtlineare stetige Funktion, Beispielwiese $\log(x)$.
+\\
+\\
+Die Methode \verb|executeBisektion| braucht zuerst drei Parametern:
+
+\begin{itemize}
+\item a aus dem Intervall [a,b]
+\item b aus dem Intervall [a,b]
+\item e ein sehr kleinen Zahl $\varepsilon$ für die Abbruchbedingung.
+\end{itemize}
+ \\
+In dieser Methode inizialisiert man eine Variable x, die ein Mittelpunkt und Näherung der Nullstelle wird. Innerhalb \verb|do/while| Schleife berechnet man die Mittelpunkt und speichert das in x. dannach durch if Bedigung(Bolzano Theorem ref) speichert man x ina a oder in b. Wenn f(a)f(x) positiv ist, speichrt man x in a. im Gegenfall speichert es x in b. Diese wird widerholen, entweder Länge der Intervalls kleiner von e wird oder f(x) gleich 0 ist. Die idale Fall wird wenn man e als 0 stellt, aber das wird dann eine endlosse Schleife sein.
+
+
+
+
+\subsection{Regula Falsorum}
+Abbildung d\\
+\\
+Regula Falsorum ist eine verbesserte Variante des Bisektionalalgorithmus, bekannt auch als Regel der Falschen und Regula Falsi. Es konstruiert eine Näherung an die Nullstelle aus zwei falschen Werten.
+Im Abbildung d ist eine nicht linare stetige Funktion $f(x)$ $f: [a.b] \in \mathbb{R}$ und gilt $f(a)f(b)$ wie im Bisektionalgorithmus, wobei es nur genau eine Nullstelle $c$ im Intrevall $[a.b]$ gabe.
+Die erste Näherung an der Nullstelle $x_1$ bekommt man durch den Schnitpunkt der x-Achse und Gerade die durch die zwei Punkten$(a,f(a)),(b,f(b))$ liegt.\\
+Die Zweipunktenform einer Geraden durch die Punkte $(a,f(a))$ und $(b,f(b))$
+$$\frac{y-f(a)}{f(b)-f(a)}= \frac{x-a}{b-a}$$
+und Nullstelle der Gerade bekommt man bei Einsetzen $y=0$
+$$x_n = a - f(b)\frac{b - a}{f(b)-  f(a)} = \frac{f(b)a - f(a)b}{f(b) - f(a)}$$
+Bessere Näherung and der Nullstelle bekommt man bei Einwahl eine von zwei Intervalle $[a,x_1] $ oder $[x_1, b]$. Man entscheidet sich, mithilfe der Bolzano Theorems. Wenn $f(a)f(x_1) < 0$ gilt,liegt in Intervall $[a,x_1]$ die Nullstelle der Funktion $f$. Im Gegenfall liegt die Nullstele von Funktion $f$ in der Intervall $[x_1,b]$. Nach mehrere Iterationen oder widerholungender Prozes bekommt man noch bessere Näherugen und theoretisch die genaue Nullstelle.\\
+Beweis:\\
+Sei $x$ eine Nullstelle der Funktion $f$ und $(x_n)_{n \in \mathbb{N}}$ eine Folge aller Näherungen an der Nullstelle $x$\\
+Es gilt: 
+$$ \lim_{n \to \infty}x_n = x$$
+$$ \lim_{n \to \infty}x_{n-1} = x$$
+
+Für diese zwei Folgen folgender Ungleichung gilt:
+$$|(x_n -x_{ n - 1})_{n \in \mathbb{N} \wedge  n >= 1}| >= 0$$
+Es bedeutet dass die Abstand zwischen zwei Näherungen nicht keliner 0 sein kann. Es gilt:
+$$|\lim_{n \to \infty}x_{n-1} - \lim_{n \to \infty}x_n| = 0$$
+Dies wird für folgender Javaimplementation nützlich
+
+\subsubsection{Javaimplementation}
+Im Javaprogramm  \verb|Regula.java| ise eine Methode \verb|execute| für Regula Falsorum dargestellt.
+Die Methode \verb|f| dargestellt nur eine nichtlineare stetige Funktion, Beispielwiese $\log(x)$.
+
+Die Methode \verb|execute| braucht zuerst drei Parametern:
+
+\begin{itemize}
+\item a aus dem Intervall [a,b]
+\item b aus dem Intervall [a,b]
+\item e ein sehr kleinen Zahl $\varepsilon$ für die Abbruchbedingung.
+\end{itemize} 
+Zuerst hat man Variablen x und x1 initialisiert.
+x dargestellt Element der folge $x_n$ und als erster Wert speichert man a 
+x1 dargestlle Element der Folge $x_{n-1}$.
+Innerhalb  \verb|do/while| Schleife x speichert man in x1 und findet man die erste Näherung an der Nullstelle.
+Dann nach in \verb|fi||-Bedingung speichert man x in a oder in b.
+Diese Schleife wird wiederholt bis folgende Ungleichung stimmt:
+$$|(x_n -x_{ n - 1})_{n \in \mathbb{N} \wedge  n >= 1}| < \varepsilon$$
+Danach bekommt man Ergebnis x.
+
+
+
+ 
+
 
