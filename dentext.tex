@@ -1,23 +1,32 @@
 \chapter{Nullstellensuche}
-Abbildung a
-\\
-\\
+\begin{figure}[ht]
+\centering
+\def\svgwidth{1.00\textwidth}
+\input{gewinn.pdf_tex}
+\caption{$p_G(x)$}
+\label{fig:a}
+
+\end{figure}
 In vorgehenden Beispiel hat man eine interpolierender Spline  $p_\textrm{G}(x)$ mit den Daten der Gewinnfunktion in Javaprogramm implementiert.
- Jetzt kommt die Frage, in welchem Intervall unsere Gewinnzone liegt. Aus Abblidung a ist siehtbar, dass im Interval $[10,60]$ fast ganze Gewinnzone liegt, denn in diesem Intervall ist  $p_\textrm{G}(x) > 0$.
+ Jetzt kommt die Frage, in welchem Intervall unsere Gewinnzone liegt. Aus Abblidung \ref{fig:a} ist siehtbar, dass im Interval $[10,60]$ fast ganze Gewinnzone liegt, denn in diesem Intervall ist  $p_\textrm{G}(x) > 0$.
 Man darf nicht  Intervall $[0,10]$ ganz ignorieren. Dieses Intervall ist interresant, weil da in einem Punkt eine Nullstelle liegt.
 $$p_\textrm{G}(x) =0$$
 Nullstelle ist in unserem Beispiel die Grenze zwischen der Gewinnzone und Verlustzone. Ohne diese Nullstelle kann man nicht ganz genau Gewinnzone bestimmen , darum braucht man Methoden eine Nullstelle zu finden.
 
 \subsection{Bisektionalgorithmus}
 Eine berühmste Algorithmus zur Bestimmung  einer Nullstelle non- linearer Funktionen ist Bisektionalgorithmu, bekannt auch als Löwenfangalgorithmus oder Intervalschachtelung.
-\\
-Abblidung b
-\\
-\\
+\begin{figure}[ht]
+\centering
+\def\svgwidth{1.00\textwidth}
+\input{bisb.pdf_tex}
+\caption{Bisektion}
+\label{fig:bar}
+\end{figure}
+
 Laut der Theorem von Bolzano\footnote{Bernardus Placidus Johann Nepomuk Bolzano (1781-1848) war tschechische katolischer Priester, Philosoph und Matematiker.Als Mathematiker betrieb er Grundlagenforschung in der Analysis. Er konstruirte überall stetige Funktion, aber nirgends differenzierbar.
 Im einen Austaz von 1817 bewies er den Zwischenwertsatz und führte Cauchy-Folgen ein, vier Jahre vor Augustin- Louis Chauchy} sei eine nicht lineare  Funktion $f(x)$ ,dass im Intervall $[a,b]$ stetig ist,  
 und  $f(a)$, $f(b)$ entgegengesetzte Vorzeichen haben: $f(a)f(b)<0$, dann existiert ein $c$:
-$$c \in (a,b) \wedge f(c)=0$$ FOOTNOTE bolzano Theorem und ZITATION AUF PDF\\
+$$c \in (a,b) ; f(c)=0$$  ZITATION AUF PDF\\
 Zuerst berechnet man die Mittelpunkt $x_m$ des Intervalls $[a,b]$ durch den Formel:
 $$ x_n = \frac{a+b}{2}$$
 Abbildung c
