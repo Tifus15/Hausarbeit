@@ -8,12 +8,14 @@
 
 \end{figure}
 In vorgehenden Beispiel hat man eine interpolierender Spline  $p_\textrm{G}(x)$ mit den Daten der Gewinnfunktion in Javaprogramm implementiert.
- Jetzt kommt die Frage, in welchem Intervall unsere Gewinnzone liegt. Aus Abblidung \ref{fig:a} ist siehtbar, dass im Interval $[10,60]$ fast ganze Gewinnzone liegt, denn in diesem Intervall ist  $p_\textrm{G}(x) > 0$.
+Jetzt kommt die Frage, in welchem Intervall unsere Gewinnzone liegt. Aus Abblidung \ref{fig:a} ist siehtbar, dass im Interval $[10,60]$ fast ganze Gewinnzone liegt, denn in diesem Intervall ist  $p_\textrm{G}(x) > 0$.
 Man darf nicht  Intervall $[0,10]$ ganz ignorieren. Dieses Intervall ist interresant, weil da in einem Punkt eine Nullstelle liegt.
-$$p_\textrm{G}(x) =0$$
+\begin{equation}
+p_\textrm{G}(x) =0
+\end{equation}
 Nullstelle ist in unserem Beispiel die Grenze zwischen der Gewinnzone und Verlustzone. Ohne diese Nullstelle kann man nicht ganz genau Gewinnzone bestimmen , darum braucht man Methoden eine Nullstelle zu finden.
 
-\subsection{Bisektionalgorithmus}
+\section{Bisektionalgorithmus}
 Eine berühmste Algorithmus zur Bestimmung  einer Nullstelle non- linearer Funktionen ist Bisektionalgorithmu, bekannt auch als Löwenfangalgorithmus oder Intervalschachtelung.
 \begin{figure}[ht]
 \centering
@@ -26,20 +28,28 @@ Eine berühmste Algorithmus zur Bestimmung  einer Nullstelle non- linearer Funkt
 Laut der Theorem von Bolzano\footnote{Bernardus Placidus Johann Nepomuk Bolzano (1781-1848) war tschechische katolischer Priester, Philosoph und Matematiker.Als Mathematiker betrieb er Grundlagenforschung in der Analysis. Er konstruirte überall stetige Funktion, aber nirgends differenzierbar.
 Im einen Austaz von 1817 bewies er den Zwischenwertsatz und führte Cauchy-Folgen ein, vier Jahre vor Augustin- Louis Chauchy} sei eine nicht lineare  Funktion $f(x)$ ,dass im Intervall $[a,b]$ stetig ist,  
 und  $f(a)$, $f(b)$ entgegengesetzte Vorzeichen haben: $f(a)f(b)<0$, dann existiert ein $c$:
-$$c \in (a,b) ; f(c)=0$$  ZITATION AUF PDF\\
+\begin{equation}
+c \in (a,b) ; f(c)=0
+\end{equation}  ZITATION AUF PDF\\
 Zuerst berechnet man die Mittelpunkt $x_m$ des Intervalls $[a,b]$ durch den Formel:
-$$ x_n = \frac{a+b}{2}$$
+\begin{equation} 
+x_n = \frac{a+b}{2}
+\end{equation}
 Abbildung c
 \\
 Aus Abbildung c ist zu sehen, dass man Interval $[a,b]$ auf zwei Teilintervale $[a,x_m]$ und $[x_m,b]$ halbeirt wird. Es ist zu merken dass Längen von Teilintervallen sind gleich und für ein Halb kleiner von der Intervalllänge $[a,b]$. 
 Jetzt soll man entscheiden in welche von disen zwei Teilintervalle Nullstelle liegt. Dafür nutzen wir auch Theorem von Bolzano. 
 Wenn $f(a)$ und $(x_m)$ entgegengesetzte Vorzeiche haben, liegt in $[a,x_n]$ eine Nullstelle. Im Gegenfall liegt die nullstelle in $[x_m,b]$.
 Danach wiederholt man das ganze  Prozess, bis man eine gute Näherung der Nullstelle findet, aber es gibt eine bessere Abruchbedigung, Durch halbieren der Intervallänge $L_n$ nach $n$ Iterationen (Wiederholungen) die Null wird. Dafür gilt:
-$$L_n = \frac{b-a}{2^n}, n \in \mathbb{N}$$ Folge $L_n$ ist konvergent und es konvergiert auch in 0:
-$$\lim_{n \to \infty}L_n = \lim_{n \to \infty}\frac{b-a}{2^n}=0$$
+\begin{equation}
+L_n = \frac{b-a}{2^n}, n \in \mathbb{N}
+\end{equation} Folge $L_n$ ist konvergent und es konvergiert auch in 0:
+\begin{equation}\lim_{n \to \infty}L_n = \lim_{n \to \infty}\frac{b-a}{2^n}=0
+\end{equation}
 Gleichzeitig gilt auch für $(x_n)_{n \in \mathbb{N}}$:
-$$\lim_{n \to \infty} x_n =\lim_{n \to \infty}\frac{a+b}{2^n} =x$$
-
+\begin{equation}
+\lim_{n \to \infty} x_n =\lim_{n \to \infty}\frac{a+b}{2^n} =x
+\end{equation}
 \subsection{Javaimplementation}
 Im javaprogramm \verb|Bisektion.java| ist eine Methode \verb|executeBisektion| für Bisektionverfahren dargestellt und es wird erklärt wie dieses Algorithmus fuktioniert.\\
 Die Methode \verb|f| dargestellt nur eine nichtlineare stetige Funktion, Beispielwiese $\log(x)$.
@@ -51,7 +61,7 @@ Die Methode \verb|executeBisektion| braucht zuerst drei Parametern:
 \item b aus dem Intervall [a,b]
 \item e ein sehr kleinen Zahl $\varepsilon$ für die Abbruchbedingung.
 \end{itemize}
-In dieser Methode inizialisiert man eine Variable x, die ein Mittelpunkt und Näherung der Nullstelle wird. Innerhalb \verb|do/while| Schleife berechnet man die Mittelpunkt und speichert das in x. dannach durch if Bedigung(Bolzano Theorem ref) speichert man x ina a oder in b. Wenn f(a)f(x) positiv ist, speichrt man x in a. im Gegenfall speichert es x in b. Diese wird widerholen, entweder Länge der Intervalls kleiner von e wird oder f(x) gleich 0 ist. Die idale Fall wird wenn man e als 0 stellt, aber das wird dann eine endlosse Schleife sein.
+In dieser Methode inizialisiert man eine Variable x, die ein Mittelpunkt und Näherung der Nullstelle wird. Innerhalb \verb|do/while| Schleife berechnet man die Mittelpunkt und speichert das in x. dannach durch if Bedigung(Bolzano Theorem ref) speichert man x ina a oder in b. Wenn $f(a)f(x)$ positiv ist, speichrt man x in a. im Gegenfall speichert es x in b. Diese wird widerholen, entweder Länge der Intervalls kleiner von e wird oder f(x) gleich 0 ist. Die idale Fall wird wenn man e als 0 stellt, aber das wird dann eine endlosse Schleife sein.
 \section{Regula Falsorum}
 Abbildung d\\
 \\
@@ -59,20 +69,32 @@ Regula Falsorum ist eine verbesserte Variante des Bisektionalalgorithmus, bekann
 Im Abbildung d ist eine nicht linare stetige Funktion $f(x)$ $f: [a.b] \in \mathbb{R}$ und gilt $f(a)f(b)$ wie im Bisektionalgorithmus, wobei es nur genau eine Nullstelle $c$ im Intrevall $[a.b]$ gabe.
 Die erste Näherung an der Nullstelle $x_1$ bekommt man durch den Schnitpunkt der x-Achse und Gerade die durch die zwei Punkten$(a,f(a)),(b,f(b))$ liegt,was eine Sekante ist.\\
 Die Zweipunktenform einer Geraden durch die Punkte $(a,f(a))$ und $(b,f(b))$
-$$\frac{y-f(a)}{f(b)-f(a)}= \frac{x-a}{b-a}$$
+\begin{equation}
+\frac{y-f(a)}{f(b)-f(a)}= \frac{x-a}{b-a}
+\end{equation}
 und Nullstelle der Gerade bekommt man bei Einsetzen $y=0$
-$$x_n = a - f(b)\frac{b - a}{f(b)-  f(a)} = \frac{f(b)a - f(a)b}{f(b) - f(a)}$$
+\begin{equation}
+x_n = a - f(b)\frac{b - a}{f(b)-  f(a)} = \frac{f(b)a - f(a)b}{f(b) - f(a)}
+\end{equation}
 Bessere Näherung and der Nullstelle bekommt man bei Einwahl eine von zwei Intervalle $[a,x_1] $ oder $[x_1, b]$. Man entscheidet sich, mithilfe der Bolzano Theorems. Wenn $f(a)f(x_1) < 0$ gilt,liegt in Intervall $[a,x_1]$ die Nullstelle der Funktion $f$. Im Gegenfall liegt die Nullstele von Funktion $f$ in der Intervall $[x_1,b]$. Nach mehrere Iterationen oder widerholungender Prozes bekommt man noch bessere Näherugen und theoretisch die genaue Nullstelle.\\
 Beweis:\\
 Sei $x$ eine Nullstelle der Funktion $f$ und $(x_n)_{n \in \mathbb{N}}$ eine Folge aller Näherungen an der Nullstelle $x$\\
 Es gilt: 
-$$ \lim_{n \to \infty}x_n = x$$
-$$ \lim_{n \to \infty}x_{n-1} = x$$
+\begin{equation}
+\lim_{n \to \infty}x_n = x
+\end{equation}
+\begin{equation} 
+\lim_{n \to \infty}x_{n-1} = x
+\end{equation}
 
 Für diese zwei Folgen folgender Ungleichung gilt:
-$$|(x_n -x_{ n - 1})_{n \in \mathbb{N} }| >= 0$$
+\begin{equation}
+|(x_n -x_{ n - 1})_{n \in \mathbb{N} }| >= 0
+\end{equation}
 Es bedeutet dass die Abstand zwischen zwei Näherungen nicht keliner 0 sein kann. Es gilt:
-$$\lim_{n \to \infty}|x_{n-1} - x_n| = 0$$
+\begin{equation}
+\lim_{n \to \infty}|x_{n-1} - x_n| = 0
+\end{equation}
 Dies wird für folgender Javaimplementation nützlich
 
 \subsection{Javaimplementation}
@@ -92,7 +114,9 @@ x1 dargestlle Element der Folge $x_{n-1}$.
 Innerhalb  \verb|do/while| Schleife x speichert man in x1 und findet man die erste Näherung an der Nullstelle.
 Dann nach in \verb|fi||-Bedingung speichert man x in a oder in b.
 Diese Schleife wird wiederholt bis folgende Ungleichung stimmt:
-$$|(x_n -x_{ n - 1})_{n \in \mathbb{N} }| < \varepsilon$$
+\begin{equation}
+|(x_n -x_{ n - 1})_{n \in \mathbb{N} }| < \varepsilon
+\end{equation}
 Danach bekommt man Ergebnis x.
 \subsection{Modifizierte Regula Falsorum}
 Im Javaprogramm \verb|regula.java| hat man probiert eine Nullstelle der Funktion $f(x) = x^3$ im Intervall  $[-1,2]$ und Genauigkeit von $10^{-9}$. Dieses Algorithmus funktioniert aber für dieses Fall bekommt man die Lösung nach 792858 Iterationschritten.
@@ -102,7 +126,9 @@ Dieses Algorithmus wirkt genau gleich wie normale Regula Falsorum aber In jeder 
 \\Sei eine Funktion $f(x)$ , die überall stetig ist aber nicht linear im Intreval$[a,b]$. Dann zeigen wir $f(a)$ als $F$ und $f(b)$ als $G$.
 Die erste Nährung an der Nullstelle $x_1$ würde a.
 Jeder nächste Nährung berechnet man fast gleich bei normalen Algoritmus mit dem Formel:
-$$ x_n =\frac{Ga - Fb}{G-F}$$
+\begin{equation}
+x_n =\frac{Ga - Fb}{G-F}
+\end{equation}
 Zuerst nutzt man Bolzano Theorem welche Intervall  man  für weiteren Berechnung nutzen soll. wenn $f(a)f(x_2)<=0$ ist, neues Interval ist $[a,x_2]$ und neuer $G$ ist $f(x_2)$. Dann wenn $f(x_2)f(x_1) >0$ ist,$ F$ ist ein Halb kleiner.
 Wenn neues Intervall $[x_2,b]$ ist , ist neuer $F = f(x_2)$. Wenn auch$ f(x_2)f(x_1)>0$ ist, wird G ein Halb kleiner.\\
 Widerholt man die Schritten bis die Abbruchbedigung nicht erfüllt ist. Abbruchbedigung ist das gleiche wie bei normale Regula Falsorum.\\
@@ -119,7 +145,9 @@ Das macht ein kleines Problem. weil man nicht Ableitung von $p_G$ nutzen darf.
 Normalewiese nutzt, um Extrema zu finden, diese Methode:
 
  $$f: \mathbb{R} \to \mathbb{R}$$
-$$ f(x)^{\prime} = 0$$
+\begin{equation} 
+f(x)^{\prime} = 0
+\end{equation}
 Im Abbildung ist siehtbar, dass Maximum von $p_G(x)$ an den Knoten liegt, dann\\
 Ein linearer Splinne besitzt am Knoten;
 \begin{itemize}
