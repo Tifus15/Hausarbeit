@@ -503,14 +503,17 @@ Aus Tabelle:
 \begin{frame}[fragile]
 \frametitle{Javaimplementierung}
 \begin{lstlisting}[language=java,basicstyle=\ttfamily,keywordstyle=\color{blue}]
-do {
-	x = (a + b) / 2;
-	if (f(a) * f(x) < 0)
-		b = x;
-	else
-		a = x;
-} while (Math.abs(b-a)/2 > e);
-return x;
+public double executeBisektion(double a, double b,
+ double e) {
+	do {
+		x = (a + b) / 2;
+		if (f(a) * f(x) < 0)
+			b = x;
+		else
+			a = x;
+	} while (Math.abs(b-a)/2 > e);
+	return x;
+}
 \end{lstlisting}
 
 \end{frame}
@@ -604,7 +607,7 @@ n & $x_{n-1}$ &$ x_n$ & $a_n$ & $b_n$\\
 \hline
 3&\uncover<4->{3.75} & \uncover<4->{3.82}& \uncover<4->{3.75}& \uncover<4->{5} \\ 
 \hline
-&\uncover<4->{3.83} & \uncover<4->{3.83}& \uncover<4->{?}& \uncover<4->{?} \\ 
+&\uncover<4->{3.83} & \uncover<4->{3.83}& \uncover<4->{}& \uncover<4->{} \\ 
 
 \end {tabular}
 \caption{Werte der Abbildung}
@@ -629,18 +632,21 @@ aus Tabelle:
 \begin{frame}[fragile]
 \frametitle{Java-Implementierung}
 \begin{lstlisting}[language=java,basicstyle=\ttfamily,keywordstyle=\color{blue}]
-double x = a;
-double x1;
-do {	
-	x1 = x;
-	x = (f(b) * a - f(a) * b) / (f(b) - f(a));
-
-	if (f(a) * f(b) * f(x) <= 0)
-		b = x;
-	else
-		a = x;
-} while (Math.abs(x - x1) >= e);
-return x;
+public double execute(double a, double b,
+ double e) {
+	double x = a;
+	double x1;
+	do {	
+		x1 = x;
+		x = (f(b) * a - f(a) * b) 
+		    / (f(b) - f(a));
+		if (f(a) * f(b) * f(x) <= 0)
+			b = x;
+		else
+			a = x;
+	} while (Math.abs(x - x1) >= e);
+	return x;
+}
 \end{lstlisting}
 
 \end{frame}
@@ -673,7 +679,7 @@ return x;
 \begin{itemize}
 \item wenn $f(x_2)\cdot f(b)<0 \to [x_2,b]$\\
 wenn $ f(x_1) \cdot f(x_2) >0$  $ G=\frac{G}{2}$
-\item wenn $f(x")\cdot f(a)< 0\to [a,x_2]$\\
+\item wenn $f(x_2)\cdot f(a)< 0\to [a,x_2]$\\
 wenn $f(x_1) \cdot f(x_2) >0$  $ F=\frac{F}{2}$
 \end{itemize}
 \end{block}
@@ -737,7 +743,7 @@ n& $x_{n-1}$ &$ x_n$ & $a_n$ & $b_n$\\
 \hline
 3&\uncover<4->{3.97} & \uncover<4->{3.81}& \uncover<4->{3.4}& \uncover<4->{3.97} \\ 
 \hline
-&\uncover<4->{3.83} & \uncover<4->{3.83}& \uncover<4->{?}& \uncover<4->{?} \\ 
+&\uncover<4->{3.83} & \uncover<4->{3.83}& \uncover<4->{}& \uncover<4->{} \\ 
 
 \end {tabular}
 \caption{Werte der Abbildung}
@@ -750,16 +756,18 @@ n& $x_{n-1}$ &$ x_n$ & $a_n$ & $b_n$\\
 \begin{frame}[fragile]
 \frametitle{Java-Implementierung}
 \begin{lstlisting}[language=java,basicstyle=\ttfamily,keywordstyle=\color{blue}]
-double x = a;
-do {
-	x1 = x;
-	x = (G * a - F * b) / (G - F);
+public double modExecute(double a, double b, 
+ double e) {
+	double x = a;
+	do {
+		x1 = x;
+		x = (G * a - F * b) / (G - F);
 	
-	if (f(a) * f(b) * f(x) <= 0) {
-		b = x;
-		G = f(x);
-		if (f(x) * f(x1) > 0)
-			F = F / 2;
+		if (f(a) * f(b) * f(x) <= 0) {
+			b = x;
+			G = f(x);
+			if (f(x) * f(x1) > 0)
+				F = F / 2;
 
 \end{lstlisting}
 
@@ -770,19 +778,21 @@ do {
 \begin{frame}[fragile]
 \frametitle{Java-Implementierung}
 \begin{lstlisting}[language=java,basicstyle=\ttfamily,keywordstyle=\color{blue}]
-	} else {
-		a = x;
-		F = f(x);
-		if (f(x) * f(x1) > 0)
-			G = G / 2;
-	}
-} while (Math.abs(x - x1) > e);
+		} else {
+			a = x;
+			F = f(x);
+			if (f(x) * f(x1) > 0)
+				G = G / 2;
+		}
+	} while (Math.abs(x - x1) > e);
+	return x;
+}
 \end{lstlisting}
 
 \end{frame}
 \subsection{Sekantenverfahren}
 \begin{frame}
-\frametitle{Allgemeines}
+\frametitle{Sekantenverfahren}
 \begin{itemize}
 	\item Numerisches Näherungsverfahren
 	\item Benötigt zwei Startwerte $x_0$ und $x_1$	
@@ -875,7 +885,7 @@ public static double Sekante(double eps, double x1,
 \end{frame}
 \subsection{Newtonverfahren}
 \begin{frame}
-\frametitle{Allgemein}
+\frametitle{Newtonverfahren}
 \begin{itemize}
 \item numerisches Verfahren
 \item benötigt nur noch einen Startwert $x_0$
