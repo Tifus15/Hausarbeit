@@ -1,0 +1,415 @@
+% Style template for FNB presentations using Latex-beamer class
+%
+% based on NTNU-beamer class by
+%
+%     http://www.math.ntnu.no/~berland/ntnubeamer/
+%
+% Havard Berland 2005, <Havard.Berland@math.ntnu.no>
+%
+% $Id: beamerthementnu.sty 16 2005-08-23 13:44:33Z berland $
+%
+%
+%
+% modified by Florian Schmid, FNB
+% Technische Universitaet Darmstadt, Germany 2005
+%
+% extended to TU Darmstadt Corporate Design, 11/2007
+% F. Schmid, FNB
+%
+% extended to TU Darmstadt Corporate Design for GSC CE, 12/2008
+% F. van de Loo, GSC CE
+%
+% revised for for GSC CE, 03/2011
+% M. Lazanowski, GSC CE
+%
+% revised for for GSC CE, 08/2012
+% M. Lazanowski, GSC CE
+
+
+\mode<presentation>
+
+\RequirePackage{helvet}
+
+% some color definitions
+%
+% gsc-green TU Darmstadt CD
+\definecolor{gscgreen}{rgb}{0.788,0.831,0}
+% dark green
+\definecolor{darkgreen}{rgb}{0.553,0.592,0}
+% a blue that fits
+\definecolor{darkblue}{rgb}{0.224,0.439,0.565}
+\definecolor{ceblue}{rgb}{0,0.4078, 0.6157}
+\definecolor{cedunkelgrau}{rgb}{0.8,0.8, 0.8}
+\definecolor{cehellgrau}{rgb}{0.9255,0.9255, 0.9255}
+%
+% misc. definitions
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamercolor{section in toc}{fg=black,bg=white}
+\setbeamercolor{alerted text}{fg=red}
+\setbeamerfont{footline}{size=\tiny}
+
+%\tiny	5	5
+%\scriptsize	7	7
+%\footnotesize	8	8
+%\small	9	9
+%\normalsize	10	10
+%\large	12	12
+%\Large	14	14.40
+%\LARGE	18	17.28
+%\huge	20	20.74
+%\Huge	24	24.88
+
+
+%set margins
+\setbeamersize{text margin left=1.5em,text margin right=1em}
+
+
+%declare some image definitions
+%
+%standard background
+\pgfdeclareimage[width=\paperwidth]{bg_pic}{GSC-beamer-CD}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Definition of background image.
+% Title page may have different background, depending on us of
+% \gsctitlepage
+%
+% set appropriate background image
+\defbeamertemplate*{background canvas}{gsc theme}%
+{%
+  \pgfuseimage{bg_pic}%
+}
+\defbeamertemplate{background canvas}{gsc theme titlepage}[1]%
+{%
+  \pgfuseimage{#1}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% define command to allow different first page
+\newcommand{\gsctitlepage}[2]{%
+{% open a TeX group to keep changes local
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{background canvas}[gsc theme titlepage]{#2}
+\setbeamertemplate{footline}[gsc theme titlepage]{#1}
+\setbeamertemplate{title page}[gsc theme titlepage]
+\begin{frame}%
+\titlepage%
+\end{frame}%
+}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% define command to allow different first page
+\newcommand{\gsctitlepageintro}[1]{%
+{% open a TeX group to keep changes local
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{background canvas}[gsc theme titlepage]{#1}
+\setbeamertemplate{footline}[gsc theme titlepage]{}
+\setbeamertemplate{title page}[gsc theme titlepageintro]
+\begin{frame}%
+\titlepage%
+\end{frame}%
+}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% define command to allow different first page
+\newcommand{\ecestitlepageintro}[1]{%
+	{% open a TeX group to keep changes local
+		\setbeamertemplate{navigation symbols}{}
+		\setbeamertemplate{background canvas}[gsc theme titlepage]{#1}
+		\setbeamertemplate{footline}[ecesII]{}
+		\setbeamertemplate{title page}[gsc theme titlepageintro]
+		\begin{frame}%
+			\titlepage%
+		\end{frame}%
+	}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Define ECES II footer
+
+\defbeamertemplate*{footline}{ecesII}
+{
+	\leavevmode%
+	\hspace*{1.5em}
+	\hbox{%
+		\begin{beamercolorbox}[wd=.8\paperwidth,ht=2.25ex,dp=1ex,left]{date
+				in head/foot}%
+			\usebeamerfont{author in head/foot} \insertdate~| ECES II | \SoSeXX~| \insertshortauthor\ | \insertframenumber{}/\inserttotalframenumber
+		\end{beamercolorbox}}%
+		\vskip3pt%
+	}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Define standard footer containing author, shorttitle, shortdate
+% and pagenumbering
+
+\defbeamertemplate*{footline}{gsc theme}
+{
+  \leavevmode%
+  \hspace*{1.5em}
+  \hbox{%
+  \begin{beamercolorbox}[wd=.8\paperwidth,ht=2.25ex,dp=1ex,left]{date
+      in head/foot}%
+    \usebeamerfont{author in head/foot} \insertdate~| ECES II | \SoSeXX | \insertshortauthor\ | \insertframenumber{}/\inserttotalframenumber
+  \end{beamercolorbox}}%
+  \vskip3pt%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Define custom footer containing author, shorttitle, shortdate
+% and no pagenumbering
+
+\defbeamertemplate*{footline}{gsc theme noslidenumber}
+{
+  \leavevmode%
+  \hspace*{1.5em}
+  \hbox{%
+  \begin{beamercolorbox}[wd=.8\paperwidth,ht=2.25ex,dp=1ex,left]{date
+      in head/foot}%
+    \usebeamerfont{author in head/foot}TU Darmstadt | Graduate School CE | \insertshortauthor\ | \insertshorttitle
+  \end{beamercolorbox}}%
+  \vskip3pt%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Alternative footer which displays only the shortdate (conference
+% name) and the pagenumbering
+%
+\defbeamertemplate{footline}{gsc theme simplefoot}
+{
+  \leavevmode%
+  \hspace*{1.5em}
+  \hbox{%
+  \begin{beamercolorbox}[wd=.8\paperwidth,ht=2.25ex,dp=1ex,left]{date
+      in head/foot}%
+    \usebeamerfont{date in head/foot}TU Darmstadt | Graduate School CE |
+    \insertshortdate{} | \insertframenumber{}/\inserttotalframenumber
+  \end{beamercolorbox}}%
+  \vskip3pt%
+}
+%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Define custom footer containing author, shorttitle, shortdate
+% and modified pagenumbering
+
+\defbeamertemplate*{footline}{gsc theme customfoot}[1]
+{
+  \leavevmode%
+  \hspace*{1.5em}
+  \hbox{%
+  \begin{beamercolorbox}[wd=.8\paperwidth,ht=2.25ex,dp=1ex,left]{date
+      in head/foot}%
+    \usebeamerfont{author in head/foot}TU Darmstadt | Graduate School CE | \insertshortauthor\ | \insertframenumber{}/#1
+  \end{beamercolorbox}}%
+  \vskip3pt%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Alternative footer which displays only the shortdate (conference
+% name) and the pagenumbering
+%
+\defbeamertemplate{footline}{gsc theme customsimplefoot}[1]
+{
+  \leavevmode%
+  \hspace*{1.5em}
+  \hbox{%
+  \begin{beamercolorbox}[wd=.8\paperwidth,ht=2.25ex,dp=1ex,left]{date
+      in head/foot}%
+    \usebeamerfont{date in head/foot}TU Darmstadt | Graduate School CE | \insertshortdate{}\ | \insertframenumber{}/#1
+  \end{beamercolorbox}}%
+  \vskip3pt%
+}
+%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% define foot for title page in case \gsctitlepage is used
+% - an argument can be inserted for right footer
+%
+%
+
+\defbeamertemplate{footline}{gsc theme titlepage}[1]
+{
+  \leavevmode%
+  \hspace*{1.5em}
+  \hbox{%
+  \begin{beamercolorbox}[wd=.8\paperwidth,ht=2.25ex,dp=1ex,left]{date
+      in head/foot}%
+    \usebeamerfont{author in head/foot}TU Darmstadt | Graduate School CE |
+    \insertshortauthor\ |
+    \insertframenumber{}/\inserttotalframenumber
+  \end{beamercolorbox}}%
+  \vskip3pt%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Setting up first page of presentation
+%
+%
+
+\defbeamertemplate*{title page}{gsc theme titlepage}
+{%
+  \vspace*{-9.0em}
+    \begin{beamercolorbox}[sep=0pt,left,leftskip=1.2cm,left]{institute}
+      \usebeamerfont{title}\insertinstitute
+    \end{beamercolorbox}
+    \vskip2.0ex\par          
+    \begin{beamercolorbox}[sep=0pt,left,leftskip=1.2cm,left,wd=0.8\textwidth,ht=5ex]{title}
+      \usebeamerfont{title}\inserttitle\par%
+      \ifx\insertsubtitle\@empty%
+      \else%
+        \vskip0.25em%
+        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+      \fi%
+    \end{beamercolorbox}%
+    \vskip-0.0ex\par    
+    \begin{beamercolorbox}[sep=0pt,left,leftskip=1.2cm,left]{date}
+      \usebeamerfont{date}\insertdate
+    \end{beamercolorbox}    
+%    \vskip5em\par
+%    \begin{beamercolorbox}[sep=3pt,left,leftskip=1.2cm,left]{author}
+%      \usebeamerfont{author}\insertauthor
+%    \end{beamercolorbox}
+%    \vskip1em\par
+%    \begin{beamercolorbox}[sep=3pt,left,leftskip=1.2cm,left]{institute}
+%      \usebeamerfont{institute}\insertinstitute
+%    \end{beamercolorbox}
+%    \vfill\par
+%    \begin{beamercolorbox}[sep=3pt,left,leftskip=1.2cm,left]{date}
+%      \usebeamerfont{date}\insertdate
+%    \end{beamercolorbox}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Setting up first page of presentation (intro only)
+%
+%
+
+\defbeamertemplate*{title page}{gsc theme titlepageintro}
+{%
+  \vspace{-0.22\paperheight}
+  \begin{beamercolorbox}[sep=3pt,left,leftskip=1.2cm,left,wd=0.8\textwidth,ht=8ex]{title}
+    \usebeamerfont{title}\usebeamercolor[fg]{logo}\inserttitle\par%
+    \ifx\insertsubtitle\@empty%
+    \else%
+    \vskip0.25em%
+    \usebeamerfont{subtitle}\usebeamercolor[fg]{logo}\insertsubtitle\par%
+    \fi%
+\end{beamercolorbox}%
+\vfill
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Setting up standard first page of presentation
+%
+%
+
+\defbeamertemplate*{title page}{gsc theme}
+{%
+  \vspace{0.2\paperheight}
+    \begin{beamercolorbox}[sep=3pt,left,leftskip=1.2cm,center]{title}
+      \usebeamerfont{title}\inserttitle\par%
+      \ifx\insertsubtitle\@empty%
+      \else%
+        \vskip0.25em%
+        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+      \fi%
+    \end{beamercolorbox}%
+    \vskip1em\par
+    \begin{beamercolorbox}[sep=3pt,left,leftskip=1.2cm,center]{author}
+      \usebeamerfont{author}\insertauthor
+    \end{beamercolorbox}
+    \vskip1em\par
+    \begin{beamercolorbox}[sep=3pt,left,leftskip=1.2cm,center]{institute}
+      \usebeamerfont{institute}\insertinstitute
+    \end{beamercolorbox}
+    \vfill\par
+    \begin{beamercolorbox}[sep=3pt,left,leftskip=1.2cm,center]{date}
+      \usebeamerfont{date}\insertdate
+    \end{beamercolorbox}
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set standard header for all other pages
+%
+%
+
+\defbeamertemplate*{frametitle}{gsc theme}[1][left]
+{
+  \@tempdima=0.75\textwidth%
+  \advance\@tempdima by\beamer@rightmargin%
+
+  \vskip0.3cm
+
+  \begin{beamercolorbox}[sep=0cm,#1,ht=6ex,wd=\the\@tempdima]{frametitle}
+    \if@tempswa\else\csname beamer@fte#1\endcsname\fi%
+    {\usebeamerfont{frametitle}\insertframetitle\par}%
+   \end{beamercolorbox}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set navigation symbols left of gsc Logo
+%
+%
+
+\defbeamertemplate*{sidebar right}{gsc theme}
+{
+  \vfill%
+  \llap{\usebeamertemplate***{navigation symbols}\hskip1.35cm}%
+  \vskip4pt%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% other definitions
+%
+%
+%
+\setbeamercolor*{itemize item}{fg=black}
+\setbeamercolor*{itemize subitem}{fg=black}
+\setbeamercolor*{itemize subsubitem}{fg=black}
+\setbeamercolor*{enumerate item}{fg=black}
+\setbeamercolor*{enumerate subitem}{fg=black}
+\setbeamercolor*{enumerate subsubitem}{fg=black}
+\setbeamercolor*{title}{fg=white}
+\setbeamercolor*{institute}{fg=white}
+\setbeamercolor*{date}{fg=white}
+\setbeamercolor*{titleintro}{fg=white}
+\setbeamercolor*{frametitle}{fg=black}
+\setbeamercolor*{author in head/foot}{fg=gscgreen}
+\setbeamercolor*{date in head/foot}{fg=black}
+\setbeamercolor*{logo}{fg=white}
+\setbeamercolor*{title in head/foot}{fg=gscgreen}
+\setbeamercolor*{footline}{fg=black}
+\setbeamercolor*{ffootline}{fg=gscgreen}
+
+\defbeamertemplate*{itemize item}{gsc}{{\tiny{$\blacksquare$}}}
+\defbeamertemplate*{itemize subitem}{gsc}{$\bullet$}
+\defbeamertemplate*{itemize subsubitem}{gsc}{\tiny{$\square$}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Fonter
+
+\setbeamerfont{title}{size=\large,series=\bfseries}
+\setbeamerfont{logo}{size=\huge,series=\bfseries}
+\setbeamerfont{subtitle}{size=\normalsize}
+\setbeamerfont{author}{size=\normalsize}
+\setbeamerfont{date}{size=\normalsize}
+\setbeamerfont{institute}{size=\footnotesize,shape=\it}
+\setbeamerfont{frametitle}{size=\normalsize,series=\bfseries}
+\setbeamerfont{pagenumber}{size=\small,series=\bfseries}
+
+\mode
+<all>

@@ -1,0 +1,967 @@
+\documentclass[table]{beamer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set date of presentation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+\day=14 \month=07 \year=2017
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Macro's needed for the template (do not change)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mode<presentation>
+{
+  \usepackage{beamerthemegscCD}
+}
+\RequirePackage{eces}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Needed for the template
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+% Added by the user
+\usepackage[utf8]{inputenc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{pgfplotstable}
+\usepackage{listings}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Definitions for the blocks and ToC
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{lightgray}{gray}{0.95}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamercolor{block title}{fg=white,bg=ceblue}
+\setbeamercolor{block body}{fg=black,bg=cehellgrau}
+\setbeamertemplate{sections/subsections in toc}[square]
+\setbeamerfont{section number projected}{series=\bfseries,size=\large}
+\setbeamercolor{section number projected}{bg=ceblue,fg=white}
+\setbeamercolor{subsection number projected}{bg=ceblue,fg=white}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title and Subtitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% usage:   \title[short title]{title}
+
+\title[Wirtschaftlichkeit]{ Wie wirtschaftlich ist mein Betrieb? \\
+\footnotesize\sf {Denis Andri\'{c}, Bastian Koch, Dirk Schweickard}} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Authors and Date and Subject
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% usage: \author[short author]{author1\and \author2}
+%
+% usage:   \date[short date]{date}
+%
+\author[Denis Andri\'{c} | Bastian Koch | Dirk Schweickard ]{Team 02}
+
+\date[]{\today}
+
+\subject{Erfolgreich CE studieren II}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set title page and table of contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+
+\pgfdeclareimage[width=\paperwidth]{bg_title}{GSC-beamer-CD-title3}
+\AtBeginSection[]
+{
+\begin{frame}{Inhaltsverzeichnis}
+\tableofcontents[currentsection,currentsubsection,subsectionstyle=show/show/hide]
+\end{frame}
+}
+\begin{document}
+
+\ecestitlepageintro{bg_title}
+\setbeamertemplate{footline}[ecesII]
+
+\setbeamertemplate{navigation symbols}[only frame symbol]
+
+\setbeamertemplate{sidebar right}[gsc theme]
+
+\setcounter{tocdepth}{1}
+%\begin{frame}{Inhaltsverzeichnis}
+%\tableofcontents
+%\end{frame}
+\begin{frame}{Inhaltsverzeichnis}
+\tableofcontents
+\end{frame}
+\setcounter{tocdepth}{2}
+
+\section{Motivation}
+	\begin{frame}
+	\frametitle{Gewinnfunktion}
+ 		\begin{equation}
+ 		\nonumber
+ 			G(n)=E(n)-K(n)
+ 		\end{equation}
+ 		\begin{itemize}
+ 			\item $n \to$ Stückzahl
+ 			\item $E \to$ Erlös
+ 			\item $K \to$ Kosten
+ 			\item $G \to$ Gewinn 
+ 		\end{itemize}
+	\end{frame}
+	\begin{frame}
+	\frametitle{Graphen der Beispieldaten von \cite{Sonar.2001}}
+		\begin{figure}[h]
+			\centering
+			\begin{tikzpicture}
+			\begin{axis}[width=0.75\linewidth, axis lines=middle, xmin=-3, xmax=62, ymin=-80, ymax=1250, xlabel={$n$}, ylabel=Geldeinheiten, legend entries={$E(n)$,$K(n)$,$G(n)$}, legend style={at={(0.1,0.6)}, anchor=west}]
+			\addplot[blue, solid, line width=1pt] table [x=n, y=E(n)] {data.dat};
+			\addplot[red, solid, line width=1pt] table [x=n, y=K(n)] {data.dat};
+			\addplot[black, solid, line width=1pt] table [x=n, y=G(n)] {data.dat};
+			\end{axis}
+			\end{tikzpicture}
+		\end{figure}
+	\end{frame}
+	\begin{frame}
+	\frametitle{Ziele der mathematischen Methoden}
+		\begin{itemize}[<+->]
+			\item Berechnung einer reellen Gewinnfunktion aus den gegebenen Daten
+			\item Gewinnmaximierung durch Berechnung der Maxima
+			\item Nullstellenberechnung zur Ermittlung der Gewinnzone
+		\end{itemize}
+	\end{frame}
+\section{Modellierung durch reelle Funktionen}
+	\begin{frame}
+	\frametitle{Ausgangssituation}
+		\begin{block}<1->{gegeben}
+			\begin{itemize}[<+->]
+				\item Argumentmenge $A \subset \mathbb{R}$
+				\item Bildmenge $B \subset \mathbb{R}$
+				\item Funktion $F\colon A \to B$
+			\end{itemize}
+		\end{block}
+		\begin{block}<4->{gesucht}
+			\begin{itemize}
+				\item Reelle Funktion $f : \mathbb{R} \to \mathbb{R}$, sodass $\forall a \in A \colon f(a) = F(a)$ gilt
+			\end{itemize}
+		\end{block}		
+	\end{frame}
+\subsection{Lineare Splines}
+	\begin{frame}
+	\frametitle{Interpolierender Spline}
+		\begin{figure}[h]
+			\centering
+			\begin{tikzpicture}
+			\begin{axis}[width=0.75\linewidth, axis lines=middle, xmin=0, xmax=7, ymin=0, ymax=7, axis equal, xlabel={$x$}, ylabel=$f(x)$, samples=60, grid=major, ytick distance=1, xtick distance=1, every axis y label/.style={at={(ticklabel cs:0.9)},anchor=near ticklabel,}]
+			\addplot[blue, solid, line width=1.1pt] coordinates {(1,6) (3,2) (4,3)};
+			\addplot[blue, solid, line width=1.1pt] coordinates {(-1,0) (1,0)};
+			\addplot[blue, solid, line width=1.1pt] coordinates {(4,0) (8,0)};
+			\node[label={0:{(1,6)}},circle,fill,inner sep=1.5pt] at (axis cs:1,6) {};
+			\node[label={270:{(3,2)}},circle,fill,inner sep=1.5pt] at (axis cs:3,2) {};
+			\node[label={0:{(4,3)}},circle,fill,inner sep=1.5pt] at (axis cs:4,3) {};
+			\end{axis}
+			\end{tikzpicture}
+		\end{figure}
+	\end{frame}
+	\begin{frame}
+	\frametitle{Sortierung der Daten nach Größe des Arguments}
+		\begin{gather*}
+		\forall i \in \{i \in \mathbb{N} \colon 0 \leq i \leq n-1 \} \colon a_i < a_{i+1}\ \text{mit}\ a_i, a_{i+1} \in A \nonumber \\  
+		\forall i \in \{i \in \mathbb{N} \colon 0 \leq i \leq n \} \colon F(a_i) =  b_i \nonumber
+		\end{gather*}
+		\begin{itemize}
+			\item $a_i$ und $a_{i+1}$ werden im Folgenden als benachbart bezeichnet.
+		\end{itemize}
+	\end{frame}
+	\begin{frame}
+	\frametitle{Linearer Spline}
+	\begin{columns}
+		\column{0.48\textwidth}
+		\begin{figure}[h]
+			\centering
+			\begin{tikzpicture}
+			\begin{axis}[width=\linewidth, axis lines=middle, xmin=0, xmax=7, ymin=0, ymax=7, axis equal, xlabel={$x$}, ylabel=$L_i(x)$, samples=60, grid=major, ytick distance=1, xtick distance=1, every axis y label/.style={at={(ticklabel cs:0.9)},anchor=near ticklabel,}]
+			\addplot[black, dashed, line width=1pt] coordinates {(1,1) (3,0) (4,1)};
+			\addplot[blue, solid, line width=1.1pt] coordinates {(1,0) (3,1) (4,0)};
+			\node[label={0:{(1,6)}},circle,fill,inner sep=1pt] at (axis cs:1,6) {};
+			\node[label={0:{(3,2)}},circle,fill,inner sep=1pt] at (axis cs:3,2) {};
+			\node[label={0:{(4,3)}},circle,fill,inner sep=1pt] at (axis cs:4,3) {};
+			\end{axis}
+			\end{tikzpicture}
+		\end{figure}
+		\column{0.5\textwidth}
+		\begin{equation}
+		\nonumber
+		L_i(x) := \left\{\begin{array}{ll}
+		\frac{x-a_{i-1}}{a_i-a_{i-1}} & \text{für}\ x \in [a_{i-1}, a_i], \\
+		\frac{a_{i+1}-x}{a_{i+1}-a_i} & \text{für}\ x \in (a_i, a_{i+1}], \\
+		0 & \text{sonst}
+		\end{array} \right.
+		\end{equation}
+	\end{columns}
+	\end{frame}
+	\begin{frame}
+	\frametitle{Gewichteter linearer Spline $b_iL_i$}
+		\begin{figure}[h]
+			\centering
+			\begin{tikzpicture}
+			\begin{axis}[width=0.75\linewidth, axis lines=middle, xmin=0, xmax=7, ymin=0, ymax=7, axis equal, xlabel={$x$}, ylabel=$b_iL_i(x)$, samples=60, grid=major, ytick distance=1, xtick distance=1, every axis y label/.style={at={(ticklabel cs:0.9)},anchor=near ticklabel,}]
+			\addplot[black, dashed, line width=1pt] coordinates {(1,6) (3,0) (4,3)};
+			\addplot[blue, solid, line width=1.1pt] coordinates {(1,0) (3,2) (4,0)};
+			\node[label={0:{(1,6)}},circle,fill,inner sep=1.5pt] at (axis cs:1,6) {};
+			\node[label={90:{(3,2)}},circle,fill,inner sep=1.5pt] at (axis cs:3,2) {};
+			\node[label={0:{(4,3)}},circle,fill,inner sep=1.5pt] at (axis cs:4,3) {};
+			\end{axis}
+			\end{tikzpicture}
+		\end{figure}
+	\end{frame}
+	\begin{frame}
+	\frametitle{Interpolierender Spline}
+		\begin{columns}
+			\column{0.7\textwidth}
+			\begin{figure}[h]
+				\centering
+				\begin{tikzpicture}
+				\begin{axis}[width=\linewidth, axis lines=middle, xmin=0, xmax=7, ymin=0, ymax=7, axis equal, xlabel={$x$}, ylabel=$f(x)$, samples=60, grid=major, ytick distance=1, xtick distance=1, every axis y label/.style={at={(ticklabel cs:0.9)},anchor=near ticklabel,}]
+				\addplot[black, dashed, line width=1pt] coordinates {(1,6) (3,0) (4,3)};
+				\addplot[black, dashed, line width=1.1pt] coordinates {(1,0) (3,2) (4,0)};
+				\addplot[blue, solid, line width=1.1pt] coordinates {(1,6) (3,2) (4,3)};
+				\node[label={0:{(1,6)}},circle,fill,inner sep=1.5pt] at (axis cs:1,6) {};
+				\node[pin={90:{(3,2)}},circle,fill,inner sep=1.5pt] at (axis cs:3,2) {};
+				\node[label={0:{(4,3)}},circle,fill,inner sep=1.5pt] at (axis cs:4,3) {};
+				\end{axis}
+				\end{tikzpicture}
+			\end{figure}
+			\column{0.3\textwidth}
+			\begin{eqnarray}
+			\nonumber
+			f\colon [a_0, a_n] \to \mathbb{R} \\ f(x) = \sum_{i=0}^n b_i L_i(x)
+			\nonumber
+			\end{eqnarray}
+		\end{columns}
+	\end{frame}
+	\begin{frame}
+	\frametitle{Extremstellenbestimmung bei linearen Splines}
+		\begin{block}<1->{Menge der Stellen, an denen das globale Maximum angenommen wird}
+			$A_M := \{a_i\in A\colon \forall a \in A: f(a_i) \geq f(a)\}$
+		\end{block}
+		\begin{block}<2->{Menge der Stellen, an denen lokale Maxima angenommen werden}
+			$A_m := \{a_i\in A\colon f(a_{i-1}) < f(a_i) > f(a_{i+1})\}$
+		\end{block}	
+	\end{frame}
+\subsection{Lagrange-Polynome}
+	\begin{frame}
+	\frametitle{Interpolationspolynom}
+		\begin{block}{gegeben}
+			\begin{itemize}
+				\item Argumentmenge $A \subset \mathbb{R}$
+				\item Bildmenge $B \subset \mathbb{R}$
+				\item Funktion $F\colon A \to B$
+			\end{itemize}
+		\end{block}
+		\begin{block}{gesucht}
+			\begin{itemize}
+				\item Polynom $f(x) = \sum_{i=0}^n k_ix^i \in \Pi_n$ mit $n=\vert A\vert -1$, sodass $\forall a \in A \colon f(a) = F(a)$ gilt.
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	\begin{frame}
+	\frametitle{Eindeutigkeit des Polynoms}
+		\begin{itemize}[<+->]
+			\item Annahme der Existenz eines zweiten Polynoms $g \in \Pi_n$, das die Daten korrekt modelliert
+			\item Bildung der Differenz $f-g$
+			\item $f-g$ hat an allen $\vert A\vert =n+1$ gegebenen Stellen eine Nullstelle.
+			\item Polynome in $\Pi_n$ können jedoch höchstens $n$ Nullstellen haben; es ergibt sich ein Widerspruch.
+			\item Durch Widerlegung des Gegenteils ist die Eindeutigkeit des Polynoms gegeben.
+		\end{itemize}
+	\end{frame}
+	\begin{frame}
+	\frametitle{Lagrangesches Basispolynom}
+			\begin{equation}
+			\nonumber
+			L_i(x) := \frac{\prod_{j=0}^{i-1}(x-a_j) \cdot \prod_{j=i+1}^n(x-a_j)}{\prod_{j=0}^{i-1}(a_i-a_j) \cdot \prod_{j=i+1}^n(a_i-a_j)}
+			\end{equation}
+			\begin{figure}[h]
+				\centering
+				\begin{tikzpicture}
+				\begin{axis}[width=0.55\linewidth, axis lines=middle, xmin=0, xmax=7, ymin=-0.5, ymax=7, axis equal, xlabel={$x$}, ylabel=$L_i(x)$, samples=60, grid=major, ytick distance=1, xtick distance=1, every axis y label/.style={at={(ticklabel cs:0.9)},anchor=near ticklabel,}, domain=-1:8]
+				\addplot[black, dashed, line width=1pt] {x^2/6-7/6*x+2};
+				\addplot[black, dashed, line width=1pt] {x^2/3-4/3*x+1};
+				\addplot[blue, solid, line width=1.1pt] {-x^2/2+5/2*x-2};
+				\node[label={90:{(1,6)}},circle,fill,inner sep=1pt] at (axis cs:1,6) {};
+				\node[label={90:{(3,2)}},circle,fill,inner sep=1pt] at (axis cs:3,2) {};
+				\node[label={90:{(4,3)}},circle,fill,inner sep=1pt] at (axis cs:4,3) {};
+				\end{axis}
+				\end{tikzpicture}
+			\end{figure}
+	\end{frame}
+	\begin{frame}
+	\frametitle{Gewichtetes Basispolynomes $b_iL_i$}
+		\begin{figure}[h]
+			\centering
+			\begin{tikzpicture}
+			\begin{axis}[width=0.75\linewidth, axis lines=middle, xmin=0, xmax=7, ymin=-0.5, ymax=7, axis equal, xlabel={$x$}, ylabel=$b_iL_i(x)$, samples=60, grid=major, ytick distance=1, xtick distance=1, every axis y label/.style={at={(ticklabel cs:0.9)},anchor=near ticklabel,}, domain=-1:8]
+			\addplot[black, dashed, line width=1pt] {x^2-7*x+12};
+			\addplot[black, dashed, line width=1pt] {x^2-4*x+3};
+			\addplot[blue, solid, line width=1.1pt] {-x^2+5*x-4};
+			\node[label={0:{(1,6)}},circle,fill,inner sep=1.5pt] at (axis cs:1,6) {};
+			\node[label={90:{(3,2)}},circle,fill,inner sep=1.5pt] at (axis cs:3,2) {};
+			\node[label={0:{(4,3)}},circle,fill,inner sep=1.5pt] at (axis cs:4,3) {};
+			\end{axis}
+			\end{tikzpicture}
+		\end{figure}
+	\end{frame}
+	\begin{frame}
+	\frametitle{Interpolationspolynom}
+		\begin{columns}
+			\column{0.7\textwidth}
+			\begin{figure}[h]
+				\centering
+				\begin{tikzpicture}
+				\begin{axis}[width=\linewidth, axis lines=middle, xmin=0, xmax=7, ymin=-0.5, ymax=7, axis equal, xlabel={$x$}, ylabel=$b_iL_i(x)$, samples=60, grid=major, ytick distance=1, xtick distance=1, every axis y label/.style={at={(ticklabel cs:0.9)},anchor=near ticklabel,}, domain=-1:8]
+				\addplot[black, dashed, line width=1pt] {x^2-7*x+12};
+				\addplot[black, dashed, line width=1pt] {x^2-4*x+3};
+				\addplot[black, dashed, line width=1.1pt] {-x^2+5*x-4};
+				\addplot[blue, solid, line width=1.1pt] {x^2-6*x+11};
+				\node[label={0:{(1,6)}},circle,fill,inner sep=1.5pt] at (axis cs:1,6) {};
+				\node[label={90:{(3,2)}},circle,fill,inner sep=1.5pt] at (axis cs:3,2) {};
+				\node[label={0:{(4,3)}},circle,fill,inner sep=1.5pt] at (axis cs:4,3) {};
+				\end{axis}
+				\end{tikzpicture}
+			\end{figure}
+			\column{0.3\textwidth}
+			\begin{eqnarray}
+			\nonumber
+			f\colon \mathbb{R} \to \mathbb{R} \\ f(x) = \sum_{i=0}^n b_i L_i(x)
+			\nonumber
+			\end{eqnarray}
+		\end{columns}
+	\end{frame}
+\subsection{Vandermondsche Matrizen}
+	\begin{frame}
+	\frametitle{Vandermondsche Matrizen}
+		\begin{itemize}[<+->]
+			\item Alternativer Lösungsansatz: Einsetzen aller Datenpunkte in die allgemeine Gleichung des Polynoms $f\in \Pi_n$
+			\item Es entsteht ein lineares Gleichungssystem:
+			\begin{equation}
+			\nonumber
+			\underbrace{
+				\begin{bmatrix}
+				1	&	a_0	&	a_0^2	&	\dots	&	a_0^n	\\
+				1	&	a_1	&	a_1^2	&	\dots	&	a_1^n	\\
+				1	&	a_2	&	a_2^2	&	\dots	&	a_2^n	\\
+				\vdots &\vdots &\vdots	&	\ddots	&	\vdots	\\
+				1	&	a_n	&	a_n^2	&	\dots	&	a_n^n	\\
+				\end{bmatrix}}_M \cdot
+			\underbrace{
+				\begin{bmatrix}
+				k_0 \\ k_1 \\ k_2 \\ \vdots \\ k_n
+				\end{bmatrix}}_{\vec{k}} = 
+			\underbrace{
+				\begin{bmatrix}
+				b_0 \\ b_1 \\ b_2 \\ \vdots \\ b_n
+				\end{bmatrix}}_{\vec{b}}
+			\end{equation}
+			\item Die Matrix $M$ nennt man Vandermondsche Matrix
+			\item Auflösen nach dem Gaußschen Eliminationsverfahren
+			\item Wegen Langwierigkeit nicht empfehlenswert
+		\end{itemize}
+	\end{frame}
+\section{Nullstellensuche}
+\begin{frame}
+\frametitle{Nullstellensuche}	
+
+\begin{figure}
+	
+	\begin{tikzpicture}
+	\begin{axis}[width=0.6\linewidth, axis lines=middle, xlabel={$x$}, ylabel=$f(x)$, samples=100, grid=major, xmin=-5, xmax=5, ymin=-3, ymax=3, axis equal, domain=-7:7]
+	\addplot[blue, solid, line width=1pt] {0.5*x^2-1};
+	
+	\end{axis}
+	\end{tikzpicture}
+	\caption{$f(x)=\frac{1}{2}x^2-1$}
+\end{figure}
+
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Bisektionsalgoritmus}
+\begin{frame}
+\frametitle{Bisektionsalgorithmus}	
+\begin{itemize}
+\item Einer der berühmtesten Algorithmen zur Bestimmung von Nullstellen von Funktionen
+\item Löwenfangalgorithmus, Intervallschachtelung
+\end{itemize}
+
+\end{frame}	
+%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Vorbedingungen}
+\begin{theorem}{von Bolzano nach \cite{bogomolny}}
+- sei eine Funktion $f(x)$ im Intervall $[a,b]$ stetig, sodass:
+$$f(a)\cdot f(b)<0$$ dann existiert ein $c \in (a,b)$:
+$$f(c)=0$$
+
+\end{theorem}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Hauptschritte}
+\begin{block}{Mittelpunkt}
+$$x=\frac{a+b}{2}$$
+\end{block}
+\begin{block}{Neues Intervall}
+\begin{itemize}
+\item wenn $f(x)\cdot f(b)<0 \to [x,b]$
+\item wenn $f(x)\cdot f(a)< 0\to [a,x]$
+\end{itemize}
+\end{block}
+\begin{block}{Abbruchbedingung}
+$$\frac{b-a}{2}<\varepsilon ;   \varepsilon \geq 0$$
+\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Visualisierung}
+\begin{columns}[T]
+\begin{column}{0.50\linewidth}
+
+\raggedleft
+\begin{figure}
+
+
+\begin{tikzpicture}
+\begin{axis}[width=1.2\linewidth, axis lines=middle, xlabel={$x$}, ylabel=$f(x)$, samples=100, grid=major, xmin=0, xmax=7, ymin=-3, ymax=3, axis equal, domain=0:7]
+\addplot[blue, solid, line width=1pt] {0.25*(x-1)^2-2};
+\only<2>{\addplot[black, dashed] coordinates {(2,0) (2,-1.75)};}
+\only<2>{\addplot[black, dashed] coordinates {(5,0) (5,2)};}
+\only<2>{\addplot[black, dashed] coordinates {(3.5,0) (3.5,-0.4375)};}
+\only<2>{\node[label={0:{$f(b_1)$}},circle,fill,inner sep=2pt] at (axis cs:5,2) {};}
+\only<2>{\node[label={270:{$f(a_1)$}},circle,fill,inner sep=2pt] at (axis cs:2,-1.75) {};}
+\only<2>{\node[label={315:{$f(x_1)$}},circle,fill,inner sep=2pt] at (axis cs:3.5,-0.4375) {};}
+\only<2>{\node[label={90:{$a_1$}}, circle,fill,inner sep=1pt] at(axis cs:2,0) {};}
+\only<2>{\node[label={45:{$b_1$}}, circle,fill,inner sep=1pt] at(axis cs:5,0) {};}
+\only<2>{\node[label={90:{$x_1$}}, circle,fill,inner sep=1pt] at(axis cs:3.5,0) {};}
+
+\only<3>{\node[label={0:{$f(b_2)$}},circle,fill,inner sep=2pt] at (axis cs:5,2) {};}
+\only<3>{\node[label={270:{$f(a_2)$}},circle,fill,inner sep=2pt] at (axis cs:3.5,-0.44) {};}
+\only<3>{\node[label={315:{$f(x_1)$}},circle,fill,inner sep=2pt] at (axis cs:4.25,0.64) {};}
+\only<3>{\node[label={90:{$a_2$}}, circle,fill,inner sep=1pt] at(axis cs:3.5,0) {};}
+\only<3>{\node[label={45:{$b_2$}}, circle,fill,inner sep=1pt] at(axis cs:5,0) {};}
+\only<3>{\node[label={90:{$x_2$}}, circle,fill,inner sep=1pt] at(axis cs:4.25,0) {};}
+\only<3>{\addplot[black, dashed] coordinates {(4.25,0) (4.25,0.64)};}
+\only<3>{\addplot[black, dashed] coordinates {(5,0) (5,2)};}
+\only<3>{\addplot[black, dashed] coordinates {(3.5,0) (3.5,-0.4375)};}
+
+\only<4>{\node[label={0:{$f(x^*)$}},circle,fill,inner sep=2pt] at (axis cs:3.86,0) {};}
+
+
+
+
+\end{axis}
+\end{tikzpicture}
+\caption{$f(x)=\frac{1}{4}(x-1)^2-2$}
+\end{figure}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{table}[h]
+
+\begin{tabular}{c|c|c|c|c}
+n & $x_n$ &$ a_n$ & $b_n$ & $L_n$\\
+
+\hline
+1 & \uncover<2->{3.5} & \uncover<2->{2}& \uncover<2->{5}& \uncover<2->{3} \\ 
+
+\hline
+2&\uncover<3->{4.25} & \uncover<3->{3.5}& \uncover<3->{5}& \uncover<3->{1.5} \\ 
+\hline
+3&\uncover<4->{3.86} & \uncover<4->{3.5}& \uncover<4->{4.25}& \uncover<4->{0.75} \\ 
+\hline
+&\uncover<4->{3.83} & \uncover<4->{3.83}& \uncover<4->{3.83}& \uncover<4->{0} \\ 
+
+\end {tabular}
+\caption{Werte der Abbildung}
+
+\end{table}
+\end{column}
+\end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Konvergenz}
+Aus Tabelle:
+\begin{block}{Konvergenz}
+\begin{itemize}
+\item Nullstelle: $ \lim_{n \to \infty}x_n = x^*$
+\item Intervalllänge: $ \lim_{n \to \infty}L_n=\lim_{n \to \infty}\frac{b-a}{2^n}=0$
+\end{itemize}
+
+\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Javaimplementierung}
+\begin{lstlisting}[language=java,basicstyle=\ttfamily,keywordstyle=\color{blue}]
+do {
+	x = (a + b) / 2;
+	if (f(a) * f(x) < 0)
+		b = x;
+	else
+		a = x;
+} while (Math.abs(b-a)/2 > e);
+return x;
+\end{lstlisting}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Regula Falsorum}
+\begin{frame}
+\frametitle{Regula Falsorum}
+\begin{itemize}
+\item verbesserte Variante des Bisektionsalgorithmus 
+\item konstruiert eine Näherung an die Nullstelle aus zwei falschen Werten
+\item  Regel der Falschen oder Regula Falsi
+\end {itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+\begin{frame}
+\frametitle{Hauptschritte}
+\begin{block}{Näherung an die Nullstelle durch Zweipunktgerade}
+$$x = a - f(b)\frac{b - a}{f(b)-  f(a)} = \frac{f(b)\cdot a - f(a)\cdot b}{f(b) - f(a)}$$
+\end{block}
+\begin{block}{Neues Intervall}
+\begin{itemize}
+\item wenn $f(x)\cdot f(b)<0 \to [x,b]$
+\item wenn $f(x)\cdot f(a)< 0\to [a,x]$
+\end{itemize}
+\end{block}
+\begin{block}{Abbruchbedingung}
+$$|x_{n-1} - x_n|<\varepsilon ;   \varepsilon \geq 0$$
+\end{block}        
+\end{frame}	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Visualisierung}
+\begin{columns}[T]
+\begin{column}{0.50\linewidth}
+
+\raggedleft
+\begin{figure}
+
+
+\begin{tikzpicture}
+\begin{axis}[width=1.2\linewidth, axis lines=middle, xlabel={$x$}, ylabel=$f(x)$, samples=100, grid=major, xmin=0, xmax=7, ymin=-3, ymax=3, axis equal, domain=0:7]
+\addplot[blue, solid, line width=1pt] {0.25*(x-1)^2-2};
+\only<2>{\addplot[black, dashed] coordinates {(2,0) (2,-1.75)};}
+\only<2>{\addplot[black, dashed] coordinates {(5,0) (5,2)};}
+\only<2>{\addplot[black, dashed] coordinates {(3.4,0) (3.4,-0.56)};}
+\only<2>{\addplot[black, dashed] coordinates {(2,-1.75) (5,2)};}	
+\only<2>{\node[label={0:{$f(a_1)$}},circle,fill,inner sep=2pt] at (axis cs:5,2) {};}
+\only<2>{\node[label={270:{$f(b_1)$}},circle,fill,inner sep=2pt] at (axis cs:2,-1.75) {};}
+\only<2>{\node[label={315:{$f(x_1)$}},circle,fill,inner sep=2pt] at (axis cs:3.4,-0.56) {};}
+\only<2>{\node[label={90:{$a_1$}}, circle,fill,inner sep=1pt] at(axis cs:2,0) {};}
+\only<2>{\node[label={45:{$b_1$}}, circle,fill,inner sep=1pt] at(axis cs:5,0) {};}
+\only<2>{\node[label={90:{$x_1$}}, circle,fill,inner sep=1pt] at(axis cs:3.4,0) {};}
+
+\only<3>{\node[label={0:{$f(b_2)$}},circle,fill,inner sep=2pt] at (axis cs:5,2) {};}
+\only<3>{\node[label={270:{$f(a_2)$}},circle,fill,inner sep=2pt] at (axis cs:3.4,-0.56) {};}
+
+\only<3>{\node[label={90:{$a_2$}}, circle,fill,inner sep=1pt] at(axis cs:3.4,0) {};}
+\only<3>{\node[label={45:{$b_2$}}, circle,fill,inner sep=1pt] at(axis cs:5,0) {};}
+\only<3>{\node[label={90:{$x_2$}}, circle,fill,inner sep=1pt] at(axis cs:3.75,0) {};}
+
+\only<3>{\addplot[black, dashed] coordinates {(5,0) (5,2)};}
+\only<3>{\addplot[black, dashed] coordinates {(3.4,0) (3.4,-0.56)};}
+\only<3>{\addplot[black, dashed] coordinates {(3.4,-0.56) (5,2)};}
+
+\only<4>{\node[label={0:{$f(x^*)$}},circle,fill,inner sep=2pt] at (axis cs:3.86,0) {};}
+
+
+
+
+\end{axis}
+\end{tikzpicture}
+\caption{$f(x)=\frac{1}{4}(x-1)^2-2$}
+\end{figure}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{table}[h]
+
+\begin{tabular}{c|c|c|c|c}
+n & $x_{n-1}$ &$ x_n$ & $a_n$ & $b_n$\\
+
+\hline
+1 & \uncover<2->{2} & \uncover<2->{3.4}& \uncover<2->{2}& \uncover<2->{5} \\ 
+
+\hline
+2&\uncover<3->{3.4} & \uncover<3->{3.75}& \uncover<3->{3.4}& \uncover<3->{5} \\ 
+\hline
+3&\uncover<4->{3.75} & \uncover<4->{3.82}& \uncover<4->{3.75}& \uncover<4->{5} \\ 
+\hline
+&\uncover<4->{3.83} & \uncover<4->{3.83}& \uncover<4->{?}& \uncover<4->{?} \\ 
+
+\end {tabular}
+\caption{Werte der Abbildung}
+
+\end{table}
+\end{column}
+\end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Konvergenz}
+aus Tabelle:
+\begin{block}{Konvergenz}
+\begin{itemize}
+\item Nullstelle: $\lim_{n \to \infty}x_{n-1}=\lim_{n \to \infty} x_n=x^*$
+\item  $|x_{n-1} - x_n| \geq 0$
+\end{itemize}
+\end{block}
+\end{frame}	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Java-Implementierung}
+\begin{lstlisting}[language=java,basicstyle=\ttfamily,keywordstyle=\color{blue}]
+double x = a;
+double x1;
+do {	
+	x1 = x;
+	x = (f(b) * a - f(a) * b) / (f(b) - f(a));
+
+	if (f(a) * f(b) * f(x) <= 0)
+		b = x;
+	else
+		a = x;
+} while (Math.abs(x - x1) >= e);
+return x;
+\end{lstlisting}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Modifizierte Regula Falsorum}
+\begin{frame}
+\frametitle{Modifizierte Regula Falsorum}
+\begin{itemize}
+\item Nullstellensuche mit der Regula Falsorum im Intervall $[-1,2]$ der Funktion $f(x)=x^3$ mit $\varepsilon= 10^{-9}$  benötigt 792858 Iterationsschritte.
+\item  Modifizierte Methoden wie z.B. der Illinois Algorithmus oder der Algorithmus von Anderson und Björk's
+\item Illinois Algorithmus benötigt 58 Iterationen
+\end {itemize}
+\end{frame}	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Hauptschritte}
+\begin{itemize}
+\item Die erste Iteration ist ähnlich wie die der normalen Regula Falsorum
+
+\end {itemize}
+
+\begin{block}{Neues Intervall}
+\begin{itemize}
+\item $F=f(a), G=f(b)$
+\item  $x_2 = \frac{G\cdot a - F\cdot b}{G - F}$
+\end{itemize}
+\end{block}
+\begin{block}{Neues Intervall}
+\begin{itemize}
+\item wenn $f(x_2)\cdot f(b)<0 \to [x_2,b]$\\
+wenn $ f(x_1) \cdot f(x_2) >0$  $ G=\frac{G}{2}$
+\item wenn $f(x")\cdot f(a)< 0\to [a,x_2]$\\
+wenn $f(x_1) \cdot f(x_2) >0$  $ F=\frac{F}{2}$
+\end{itemize}
+\end{block}
+\end{frame}	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Visualisierung}
+\begin{columns}[T]
+\begin{column}{0.50\linewidth}
+
+\raggedleft
+\begin{figure}
+
+
+\begin{tikzpicture}
+\begin{axis}[width=1.2\linewidth, axis lines=middle, xlabel={$x$}, ylabel=$f(x)$, samples=100, grid=major, xmin=0, xmax=7, ymin=-3, ymax=3, axis equal, domain=0:7]
+\addplot[blue, solid, line width=1pt] {0.25*(x-1)^2-2};
+\only<2>{\addplot[black, dashed] coordinates {(2,0) (2,-1.75)};}
+\only<2>{\addplot[black, dashed] coordinates {(5,0) (5,2)};}
+\only<2>{\addplot[black, dashed] coordinates {(3.4,0) (3.4,-0.56)};}
+\only<2>{\addplot[black, dashed] coordinates {(2,-1.75) (5,2)};}	
+\only<2>{\node[label={0:{$G$}},circle,fill,inner sep=2pt] at (axis cs:5,2) {};}
+\only<2>{\node[label={270:{$F)$}},circle,fill,inner sep=2pt] at (axis cs:2,-1.75) {};}
+\only<2>{\node[label={315:{$f(x_1)$}},circle,fill,inner sep=2pt] at (axis cs:3.4,-0.56) {};}
+\only<2>{\node[label={90:{$a_1$}}, circle,fill,inner sep=1pt] at(axis cs:2,0) {};}
+\only<2>{\node[label={45:{$b_1$}}, circle,fill,inner sep=1pt] at(axis cs:5,0) {};}
+\only<2>{\node[label={90:{$x_1$}}, circle,fill,inner sep=1pt] at(axis cs:3.4,0) {};}
+
+\only<3>{\node[label={0:{$\frac{G}{2}$}},circle,fill,inner sep=2pt] at (axis cs:5,1) {};}
+\only<3>{\node[label={270:{$F$}},circle,fill,inner sep=2pt] at (axis cs:3.4,-0.56) {};}
+
+\only<3>{\node[label={90:{$a_2$}}, circle,fill,inner sep=1pt] at(axis cs:3.4,0) {};}
+\only<3>{\node[label={45:{$b_2$}}, circle,fill,inner sep=1pt] at(axis cs:5,0) {};}
+\only<3>{\node[label={90:{$x_2$}}, circle,fill,inner sep=1pt] at(axis cs:3.97,0) {};}
+
+\only<3>{\addplot[black, dashed] coordinates {(5,0) (5,2)};}
+\only<3>{\addplot[black, dashed] coordinates {(3.4,0) (3.4,-0.56)};}
+\only<3>{\addplot[black, dashed] coordinates {(3.4,-0.56) (5,1)};}
+
+\only<4>{\node[label={0:{$f(x^*)$}},circle,fill,inner sep=2pt] at (axis cs:3.86,0) {};}
+
+
+
+
+\end{axis}
+\end{tikzpicture}
+\caption{$f(x)=\frac{1}{4}(x-1)^2-2$}
+\end{figure}
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{table}[h]
+
+\begin{tabular}{c|c|c|c|c}
+n& $x_{n-1}$ &$ x_n$ & $a_n$ & $b_n$\\
+
+\hline
+1 & \uncover<2->{2} & \uncover<2->{3.4}& \uncover<2->{2}& \uncover<2->{5} \\ 
+
+\hline
+2&\uncover<3->{3.4} & \uncover<3->{3.97}& \uncover<3->{3.4}& \uncover<3->{5} \\ 
+\hline
+3&\uncover<4->{3.97} & \uncover<4->{3.81}& \uncover<4->{3.4}& \uncover<4->{3.97} \\ 
+\hline
+&\uncover<4->{3.83} & \uncover<4->{3.83}& \uncover<4->{?}& \uncover<4->{?} \\ 
+
+\end {tabular}
+\caption{Werte der Abbildung}
+
+\end{table}
+\end{column}
+\end{columns}
+\end{frame}	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Java-Implementierung}
+\begin{lstlisting}[language=java,basicstyle=\ttfamily,keywordstyle=\color{blue}]
+double x = a;
+do {
+	x1 = x;
+	x = (G * a - F * b) / (G - F);
+	
+	if (f(a) * f(b) * f(x) <= 0) {
+		b = x;
+		G = f(x);
+		if (f(x) * f(x1) > 0)
+			F = F / 2;
+
+\end{lstlisting}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]
+\frametitle{Java-Implementierung}
+\begin{lstlisting}[language=java,basicstyle=\ttfamily,keywordstyle=\color{blue}]
+	} else {
+		a = x;
+		F = f(x);
+		if (f(x) * f(x1) > 0)
+			G = G / 2;
+	}
+} while (Math.abs(x - x1) > e);
+\end{lstlisting}
+
+\end{frame}
+\subsection{Sekantenverfahren}
+\begin{frame}
+\frametitle{Allgemeines}
+\begin{itemize}
+	\item Numerisches Näherungsverfahren
+	\item Benötigt zwei Startwerte $x_0$ und $x_1$	
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Vorbedingungen}
+\begin{itemize}
+\item Funktion $f$ muss stetig sein
+\item einfache Nullstelle $x^*$	
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Beispiel}
+\begin{figure}
+\begin{tikzpicture}
+\begin{axis}[width=0.75\linewidth, axis lines=middle, xlabel={$x$}, ylabel=$f(x)$, samples=100, grid=major, xmin=-7, xmax=7, ymin=-3, ymax=3, axis equal, domain=-7:7]
+\addplot[blue, solid, line width=1pt] {0.25*x*x+x-3};
+
+\only<1-2>{\addplot[black, dashed] coordinates {(-3,0) (-3,-3.75)};}	
+\only<1-2>{\node[circle,fill,inner sep=1pt] at (axis cs:-3,0) {};}	
+\only<1-2>{\node[circle,fill,inner sep=1pt] at (axis cs:-3,-3.75) {};}	
+\only<1-2>{\node[label={90:{$x_0$}}, circle,fill,inner sep=1pt] at(axis cs:-3,0) {};}	
+
+\only<1-4>{\addplot[black, dashed] coordinates {(3,0) (3,2.25)};}	
+\only<1-4>{\node[circle,fill,inner sep=1pt] at (axis cs:3,0) {};}	
+\only<1-4>{\node[circle,fill,inner sep=1pt] at (axis cs:3,2.25) {};}	
+\only<1-4>{\node[label={270:{$x_1$}}, circle,fill,inner sep=1pt] at(axis cs:3,0) {};}	
+
+\only<2-4>{\addplot[black, dashed] coordinates {(0.75,0) (0.75,-2.109375)};}	
+\only<2-4>{\node[circle,fill,inner sep=1pt] at (axis cs:0.75,0) {};}	
+\only<2-4>{\node[circle,fill,inner sep=1pt] at (axis cs:0.75,-2.109375) {};}	
+\only<2-4>{\node[label={90:{$x_2$}}, circle,fill,inner sep=1pt] at(axis cs:0.75,0) {};}	
+
+\only<4-5>{\addplot[black, dashed] coordinates {(57/31,0) (57/31,-1215/3844)};}	
+\only<4-5>{\node[circle,fill,inner sep=1pt] at (axis cs:57/31,0) {};}	
+\only<4-5>{\node[circle,fill,inner sep=1pt] at (axis cs:57/31,-1215/3844) {};}	
+\only<4-5>{\node[label={90:{$x_3$}}, circle,fill,inner sep=1pt] at(axis cs:57/31,0) {};}	
+
+\only<5>{\node[label={290:{$x_4$}}, circle,fill,inner sep=1pt] at(axis cs:2.05311,0) {};}	
+\only<2>{\addplot[black, dashed] {x-0.75};}	
+
+\only<4>{\addplot[black, dashed] {(31/16)*x-57/16};}	
+
+\only<5>{\addplot[black, dashed] {(817/496)*x-3.381843955};}	
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Mathematik}
+\begin{block}<1-2>{Sekantengleichung}
+$y = \frac{f(x_1)-f(x_0)}{x_1-x_0}(x-x_1)+f(x_1)$
+\end{block}
+\begin{block}<2-3>{Nullstelle der Sekante}
+$0 = \frac{f(x_1)-f(x_0)}{x_1-x_0}(x-x_1)+f(x_1)$
+\end{block}
+\begin{block}<3-4>{Umstellen nach x}
+$x= \frac{f(x_1)x_0-f(x_1)x_1}{f(x_1)-f(x_0)}$
+\end{block}
+\begin{block}<4>{Iterationsvorschrift}
+$x_{n+1}= \frac{f(x_n)x_{n-1}-f(x_{n-1})x_n}{f(x_n)-f(x_{n-1})}$
+\end{block}
+\end{frame}
+\begin{frame}
+\frametitle{Konvergenz}
+\begin{itemize}
+\item	keine garantierte Konvergenz
+\item Verfahren bricht zusammen falls gilt $f(x_n)=f(x_{n+1})$
+\item	konvergiert linear mit Konvergenzordnung $\Phi = \frac{1 + \sqrt{5}}{2} \approx 1,618$
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Java-Implementierung}
+\begin{lstlisting}[language=Java,basicstyle=\ttfamily,keywordstyle=\color{blue}]
+
+public static double Sekante(double eps, double x1, 
+ double x2){
+	double dummy;
+	int n=0;
+	while (Math.abs(f2(x2)) > eps && n<1000){
+		dummy = x2;
+		x2 = (f2(x2)*x1-f2(x1)*x2)/(f2(x2)-f2(x1));
+		x1 = dummy;
+		n++;
+	}
+	return x2;
+}
+\end{lstlisting}
+\end{frame}
+\subsection{Newtonverfahren}
+\begin{frame}
+\frametitle{Allgemein}
+\begin{itemize}
+\item numerisches Verfahren
+\item benötigt nur noch einen Startwert $x_0$
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Vorbedingungen}
+\begin{itemize}
+\item Funktion muss zweimal stetig partiell differenzierbar sein
+\item einfache Nullstelle $x^*$
+\item Startwert $x_0$ muss in der Umgebung von $x^*$ sein
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Beispiel}
+\begin{figure}
+\begin{tikzpicture}
+\begin{axis}[width=0.75\linewidth, axis lines=middle, xlabel={$x$}, ylabel=$f(x)$, samples=100, grid=major, xmin=-7, xmax=7, ymin=-3, ymax=3, axis equal, domain=-7:7]
+\addplot[blue, solid, line width=1pt] {0.25*x*x+x-3};
+
+\only<1-2>{\addplot[black, dashed] coordinates {(0.5,0) (0.5,-39/16)};}	
+\only<1-2>{\node[circle,fill,inner sep=1pt] at (axis cs:0.5,0) {};}	
+\only<1-2>{\node[circle,fill,inner sep=1pt] at (axis cs:0.5,-39/16) {};}	
+\only<1-2>{\node[label={90:{$x_0$}}, circle,fill,inner sep=1pt] at(axis cs:0.5,0) {};} 	
+
+\only<2-4>{\addplot[black, dashed] coordinates {(2.45,0) (2.45,1521/1600)};}	
+\only<2-4>{\node[circle,fill,inner sep=1pt] at (axis cs:2.45,0) {};}	
+\only<2-4>{\node[circle,fill,inner sep=1pt] at (axis cs:2.45,1521/1600) {};}	
+\only<2-4>{\node[label={270:{$x_1$}}, circle,fill,inner sep=1pt] at(axis cs:2.45,0) {};}	
+
+\only<4>{\node[label={100:{$x_2$}}, circle,fill,inner sep=1pt] at(axis cs:7201/3560,0) {};}
+
+\only<2>{\addplot[black, dashed] {(1.25)*x-49/16};}
+\only<4>{\addplot[black, dashed] {2.225*x-7201/1600};}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Mathematik}
+\begin{block}<1-2>{Tangentengleichung}
+$y=f^{'}(x_0) x+f(x_0)-f^{'}(x_0) x_0$
+\end{block}
+\begin{block}<2-3>{Nullstelle der Tangente}
+$0=f^{'}(x_0) (x_0-x)+f(x_0)$
+\end{block}
+\begin{block}<3-4>{Umstellen nach x}
+$x=x_0-\frac{f(x_0)}{f^{'}(x_0)}$
+\end{block}
+\begin{block}<4>{Iterationsvorschrift}
+$x_{n+1}=x_n-\frac{f(x_n)}{f^{'}(x_n)}$
+\end{block}
+\end{frame}
+\begin{frame}
+\frametitle{Konvergenz}
+\begin{itemize}
+\item nur noch garantierte Konvergenz unter Einhaltung der Vorbedingungen
+\item quadratische Konvergenzordnung
+\item falls Vorbedingungen nicht erfüllt sind, kann man keine sichere Aussage über Konvergenz machen
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Java-Implementierung}
+\begin{lstlisting}[language=Java,basicstyle=\ttfamily,keywordstyle=\color{blue}]
+public static double Newton(double eps, double x) {
+	int n = 0;
+	while (Math.abs(f1(x)) > eps && n <= 1000) {
+		x = x-f1(x)/df1(x);
+		n++;
+	}
+	return x;
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[allowframebreaks]
+\frametitle{Quellenverzeichnis}
+	\bibliographystyle{alphadin}
+	\bibliography{literatur}
+\end{frame}
+\begin{frame}
+\frametitle{Abschluss}
+	\begin{block}{}
+		\begin{center}
+			\huge{Vielen Dank für Ihre Aufmerksamkeit!\\Haben Sie noch Fragen?}
+		\end{center}
+	\end{block}
+\end{frame}
+\end{document}
+

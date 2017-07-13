@@ -1,0 +1,12 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: template_beamer.aux
+The style file: alphadin.bst
+Database file #1: literatur.bib
+Warning--entry type for "bogomolny" isn't style-file defined
+--line 32 of file literatur.bib
+I was expecting a `,' or a `}'---line 37 of file literatur.bib
+ :  
+ :  date={2017-07-07}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--there's an address but no publisher in Sonar.2001
+(There was 1 error message)

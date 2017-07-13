@@ -1,0 +1,12 @@
+\select@language {ngerman}
+\beamer@sectionintoc {1}{Motivation}{3}{0}{1}
+\beamer@sectionintoc {2}{Modellierung durch reelle Funktionen}{9}{0}{2}
+\beamer@subsectionintoc {2}{1}{Lineare Splines}{14}{0}{2}
+\beamer@subsectionintoc {2}{2}{Lagrange-Polynome}{21}{0}{2}
+\beamer@subsectionintoc {2}{3}{Vandermondsche Matrizen}{30}{0}{2}
+\beamer@sectionintoc {3}{Nullstellensuche}{35}{0}{3}
+\beamer@subsectionintoc {3}{1}{Bisektionsalgoritmus}{37}{0}{3}
+\beamer@subsectionintoc {3}{2}{Regula Falsorum}{46}{0}{3}
+\beamer@subsectionintoc {3}{3}{Modifizierte Regula Falsorum}{54}{0}{3}
+\beamer@subsectionintoc {3}{4}{Sekantenverfahren}{62}{0}{3}
+\beamer@subsectionintoc {3}{5}{Newtonverfahren}{75}{0}{3}

@@ -1,0 +1,128 @@
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\slideentry {0}{0}{2}{2/2}{}{0}}
+\headcommand {\beamer@framepages {2}{2}}
+\headcommand {\sectionentry {1}{Motivation}{3}{Motivation}{0}}
+\headcommand {\beamer@sectionpages {1}{2}}
+\headcommand {\beamer@subsectionpages {1}{2}}
+\headcommand {\slideentry {1}{0}{1}{3/3}{}{0}}
+\headcommand {\beamer@framepages {3}{3}}
+\headcommand {\slideentry {1}{0}{2}{4/4}{}{0}}
+\headcommand {\beamer@framepages {4}{4}}
+\headcommand {\slideentry {1}{0}{3}{5/5}{}{0}}
+\headcommand {\beamer@framepages {5}{5}}
+\headcommand {\slideentry {1}{0}{4}{6/8}{}{0}}
+\headcommand {\beamer@framepages {6}{8}}
+\headcommand {\sectionentry {2}{Modellierung durch reelle Funktionen}{9}{Modellierung durch reelle Funktionen}{0}}
+\headcommand {\beamer@sectionpages {3}{8}}
+\headcommand {\beamer@subsectionpages {3}{8}}
+\headcommand {\slideentry {2}{0}{1}{9/9}{}{0}}
+\headcommand {\beamer@framepages {9}{9}}
+\headcommand {\slideentry {2}{0}{2}{10/13}{}{0}}
+\headcommand {\beamer@framepages {10}{13}}
+\headcommand {\beamer@subsectionentry {0}{2}{1}{14}{Lineare Splines}}\headcommand {\beamer@subsectionpages {9}{13}}
+\headcommand {\slideentry {2}{1}{1}{14/14}{Lineare Splines}{0}}
+\headcommand {\beamer@framepages {14}{14}}
+\headcommand {\slideentry {2}{1}{2}{15/15}{Lineare Splines}{0}}
+\headcommand {\beamer@framepages {15}{15}}
+\headcommand {\slideentry {2}{1}{3}{16/16}{Lineare Splines}{0}}
+\headcommand {\beamer@framepages {16}{16}}
+\headcommand {\slideentry {2}{1}{4}{17/17}{Lineare Splines}{0}}
+\headcommand {\beamer@framepages {17}{17}}
+\headcommand {\slideentry {2}{1}{5}{18/18}{Lineare Splines}{0}}
+\headcommand {\beamer@framepages {18}{18}}
+\headcommand {\slideentry {2}{1}{6}{19/20}{Lineare Splines}{0}}
+\headcommand {\beamer@framepages {19}{20}}
+\headcommand {\beamer@subsectionentry {0}{2}{2}{21}{Lagrange-Polynome}}\headcommand {\beamer@subsectionpages {14}{20}}
+\headcommand {\slideentry {2}{2}{1}{21/21}{Lagrange-Polynome}{0}}
+\headcommand {\beamer@framepages {21}{21}}
+\headcommand {\slideentry {2}{2}{2}{22/26}{Lagrange-Polynome}{0}}
+\headcommand {\beamer@framepages {22}{26}}
+\headcommand {\slideentry {2}{2}{3}{27/27}{Lagrange-Polynome}{0}}
+\headcommand {\beamer@framepages {27}{27}}
+\headcommand {\slideentry {2}{2}{4}{28/28}{Lagrange-Polynome}{0}}
+\headcommand {\beamer@framepages {28}{28}}
+\headcommand {\slideentry {2}{2}{5}{29/29}{Lagrange-Polynome}{0}}
+\headcommand {\beamer@framepages {29}{29}}
+\headcommand {\beamer@subsectionentry {0}{2}{3}{30}{Vandermondsche Matrizen}}\headcommand {\beamer@subsectionpages {21}{29}}
+\headcommand {\slideentry {2}{3}{1}{30/34}{Vandermondsche Matrizen}{0}}
+\headcommand {\beamer@framepages {30}{34}}
+\headcommand {\sectionentry {3}{Nullstellensuche}{35}{Nullstellensuche}{0}}
+\headcommand {\beamer@sectionpages {9}{34}}
+\headcommand {\beamer@subsectionpages {30}{34}}
+\headcommand {\slideentry {3}{0}{1}{35/35}{}{0}}
+\headcommand {\beamer@framepages {35}{35}}
+\headcommand {\slideentry {3}{0}{2}{36/36}{}{0}}
+\headcommand {\beamer@framepages {36}{36}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{37}{Bisektionsalgoritmus}}\headcommand {\beamer@subsectionpages {35}{36}}
+\headcommand {\slideentry {3}{1}{1}{37/37}{Bisektionsalgoritmus}{0}}
+\headcommand {\beamer@framepages {37}{37}}
+\headcommand {\slideentry {3}{1}{2}{38/38}{Bisektionsalgoritmus}{0}}
+\headcommand {\beamer@framepages {38}{38}}
+\headcommand {\slideentry {3}{1}{3}{39/39}{Bisektionsalgoritmus}{0}}
+\headcommand {\beamer@framepages {39}{39}}
+\headcommand {\slideentry {3}{1}{4}{40/43}{Bisektionsalgoritmus}{0}}
+\headcommand {\beamer@framepages {40}{43}}
+\headcommand {\slideentry {3}{1}{5}{44/44}{Bisektionsalgoritmus}{0}}
+\headcommand {\beamer@framepages {44}{44}}
+\headcommand {\slideentry {3}{1}{6}{45/45}{Bisektionsalgoritmus}{0}}
+\headcommand {\beamer@framepages {45}{45}}
+\headcommand {\beamer@subsectionentry {0}{3}{2}{46}{Regula Falsorum}}\headcommand {\beamer@subsectionpages {37}{45}}
+\headcommand {\slideentry {3}{2}{1}{46/46}{Regula Falsorum}{0}}
+\headcommand {\beamer@framepages {46}{46}}
+\headcommand {\slideentry {3}{2}{2}{47/47}{Regula Falsorum}{0}}
+\headcommand {\beamer@framepages {47}{47}}
+\headcommand {\slideentry {3}{2}{3}{48/51}{Regula Falsorum}{0}}
+\headcommand {\beamer@framepages {48}{51}}
+\headcommand {\slideentry {3}{2}{4}{52/52}{Regula Falsorum}{0}}
+\headcommand {\beamer@framepages {52}{52}}
+\headcommand {\slideentry {3}{2}{5}{53/53}{Regula Falsorum}{0}}
+\headcommand {\beamer@framepages {53}{53}}
+\headcommand {\beamer@subsectionentry {0}{3}{3}{54}{Modifizierte Regula Falsorum}}\headcommand {\beamer@subsectionpages {46}{53}}
+\headcommand {\slideentry {3}{3}{1}{54/54}{Modifizierte Regula Falsorum}{0}}
+\headcommand {\beamer@framepages {54}{54}}
+\headcommand {\slideentry {3}{3}{2}{55/55}{Modifizierte Regula Falsorum}{0}}
+\headcommand {\beamer@framepages {55}{55}}
+\headcommand {\slideentry {3}{3}{3}{56/59}{Modifizierte Regula Falsorum}{0}}
+\headcommand {\beamer@framepages {56}{59}}
+\headcommand {\slideentry {3}{3}{4}{60/60}{Modifizierte Regula Falsorum}{0}}
+\headcommand {\beamer@framepages {60}{60}}
+\headcommand {\slideentry {3}{3}{5}{61/61}{Modifizierte Regula Falsorum}{0}}
+\headcommand {\beamer@framepages {61}{61}}
+\headcommand {\beamer@subsectionentry {0}{3}{4}{62}{Sekantenverfahren}}\headcommand {\beamer@subsectionpages {54}{61}}
+\headcommand {\slideentry {3}{4}{1}{62/62}{Sekantenverfahren}{0}}
+\headcommand {\beamer@framepages {62}{62}}
+\headcommand {\slideentry {3}{4}{2}{63/63}{Sekantenverfahren}{0}}
+\headcommand {\beamer@framepages {63}{63}}
+\headcommand {\slideentry {3}{4}{3}{64/68}{Sekantenverfahren}{0}}
+\headcommand {\beamer@framepages {64}{68}}
+\headcommand {\slideentry {3}{4}{4}{69/72}{Sekantenverfahren}{0}}
+\headcommand {\beamer@framepages {69}{72}}
+\headcommand {\slideentry {3}{4}{5}{73/73}{Sekantenverfahren}{0}}
+\headcommand {\beamer@framepages {73}{73}}
+\headcommand {\slideentry {3}{4}{6}{74/74}{Sekantenverfahren}{0}}
+\headcommand {\beamer@framepages {74}{74}}
+\headcommand {\beamer@subsectionentry {0}{3}{5}{75}{Newtonverfahren}}\headcommand {\beamer@subsectionpages {62}{74}}
+\headcommand {\slideentry {3}{5}{1}{75/75}{Newtonverfahren}{0}}
+\headcommand {\beamer@framepages {75}{75}}
+\headcommand {\slideentry {3}{5}{2}{76/76}{Newtonverfahren}{0}}
+\headcommand {\beamer@framepages {76}{76}}
+\headcommand {\slideentry {3}{5}{3}{77/80}{Newtonverfahren}{0}}
+\headcommand {\beamer@framepages {77}{80}}
+\headcommand {\slideentry {3}{5}{4}{81/84}{Newtonverfahren}{0}}
+\headcommand {\beamer@framepages {81}{84}}
+\headcommand {\slideentry {3}{5}{5}{85/85}{Newtonverfahren}{0}}
+\headcommand {\beamer@framepages {85}{85}}
+\headcommand {\slideentry {3}{5}{6}{86/86}{Newtonverfahren}{0}}
+\headcommand {\beamer@framepages {86}{86}}
+\headcommand {\slideentry {3}{5}{7}{87/87}{Newtonverfahren}{0}}
+\headcommand {\beamer@framepages {87}{87}}
+\headcommand {\slideentry {3}{5}{7}{87/88}{Newtonverfahren}{0}}
+\headcommand {\beamer@framepages {87}{88}}
+\headcommand {\slideentry {3}{5}{8}{89/89}{Newtonverfahren}{0}}
+\headcommand {\beamer@framepages {89}{89}}
+\headcommand {\beamer@partpages {1}{89}}
+\headcommand {\beamer@subsectionpages {75}{89}}
+\headcommand {\beamer@sectionpages {35}{89}}
+\headcommand {\beamer@documentpages {89}}
+\headcommand {\def \inserttotalframenumber {53}}

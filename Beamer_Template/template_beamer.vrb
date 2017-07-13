@@ -1,0 +1,11 @@
+\frametitle{Java-Implementierung}
+\begin{lstlisting}[language=Java,basicstyle=\ttfamily,keywordstyle=\color{blue}]
+public static double Newton(double eps, double x) {
+	int n = 0;
+	while (Math.abs(f1(x)) > eps && n <= 1000) {
+		x = x-f1(x)/df1(x);
+		n++;
+	}
+	return x;
+}
+\end{lstlisting}
